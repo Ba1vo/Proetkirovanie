@@ -16,7 +16,6 @@ func AddUser(User decoder.RegUser) error {
 		fmt.Println(err.Error())
 		return errors.New("Creds error")
 	}
-	fmt.Println(User)
 	defer db.Close()
 	err = db.Ping()
 	if err != nil {

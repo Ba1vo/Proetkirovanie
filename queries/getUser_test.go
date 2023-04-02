@@ -27,8 +27,7 @@ func TestEmptyUser(t *testing.T) {
 				Name:  "Boka",
 				Email: "2055egor@gmail.com",
 				Pass:  "7b1963714055e4cfd07bff3f91a48e085e6a02bf734ea40e24c86f8488e80333",
-			},
-			create: false,
+			}, create: false,
 		},
 	}
 	for _, user := range testUsers {
@@ -38,9 +37,8 @@ func TestEmptyUser(t *testing.T) {
 		newUser, err := GetUser(decoder.AuthUser{Email: user.user.Email, Pass: user.user.Pass})
 		if err != nil && err.Error() == "Empty" {
 			fmt.Printf("User(Email: %s, Pass: %s) doesn't exist\n", user.user.Email, user.user.Pass)
-
 		} else {
-			fmt.Printf("User(Email: %s, Pass: %s) found. Full creds: ID: %d, Name: %s Email: %s, Pass: %s, Date: %s\n",
+			fmt.Printf("User(Email: %s, Pass: %s) found. \nFull creds: \nID: %d \nName: %s \nEmail: %s, \nPass: %s, \nDate: %s\n",
 				user.user.Email, user.user.Pass, newUser.ID, newUser.Name, newUser.Email, newUser.Pass, newUser.Date)
 		}
 		if user.create {

@@ -9,10 +9,11 @@ import (
 
 func TestSearch(t *testing.T) {
 	options := decoder.SearchOptions{
-		Str: "Азимов",
+		Str: "Айзек",
 	}
 	testBooks := []decoder.FullBook{
-		{ID: 0,
+		{
+			ID:         0,
 			Name:       "Конец вечности",
 			Price:      "555.55",
 			Discount:   5,
@@ -20,11 +21,26 @@ func TestSearch(t *testing.T) {
 			Photo:      "default",
 			Desc:       "bla-bla",
 			Dimensions: [3]int{10, 20, 10},
-			Authors:    []string{"А. Азимов"},
+			Authors:    []string{"Айзек Азимов"},
 			Publishers: []string{"АСТ"},
 			Genres:     []string{"Фантастика"},
 			Amount:     5,
 			Date:       "2020-10-5",
+		},
+		{
+			ID:         0,
+			Name:       "Город и звезды",
+			Price:      "656.55",
+			Discount:   0,
+			ISBN:       "978-5-17-105787-9",
+			Photo:      "default",
+			Desc:       "Артура Кларка, Айзека Азимова и Роберта Хайнлайна называют «большой тройкой»,",
+			Dimensions: [3]int{18, 11, 16},
+			Authors:    []string{"Артур Чарльз Кларк"},
+			Publishers: []string{"АСТ"},
+			Genres:     []string{"Фантастика"},
+			Amount:     5,
+			Date:       "2021-10-5",
 		},
 	}
 	for _, book := range testBooks {
