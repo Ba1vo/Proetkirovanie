@@ -23,7 +23,7 @@ func TestEmptyUser(t *testing.T) {
 			create: true,
 		},
 		{
-			user: decoder.RegUser{
+			user: decoder.RegUser{ //commit testo
 				Name:  "Boka",
 				Email: "2055egor@gmail.com",
 				Pass:  "7b1963714055e4cfd07bff3f91a48e085e6a02bf734ea40e24c86f8488e80333",
