@@ -64,8 +64,11 @@ type Order struct {
 	Books  []CardBook
 }
 
-type OrderCreate struct {
+type ServerOrder struct {
+	ID       int
 	UserID   int
+	Adress   string
+	Status   string
 	Book_IDs []int
 	Amounts  []int
 }
@@ -78,8 +81,12 @@ type SearchOptions struct {
 	EndDate    string
 }
 
+type BookId struct {
+	Id int
+}
+
 type Decodable interface {
-	*RegUser | *AuthUser | *Order | *FullBook
+	*RegUser | *AuthUser | *Order | *FullBook | *BookId | *ServerOrder | *SearchOptions
 }
 
 type Writable interface {

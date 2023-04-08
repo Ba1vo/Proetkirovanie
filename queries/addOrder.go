@@ -10,7 +10,7 @@ import (
 	"github.com/Ba1vo/Proektirovanie/decoder"
 )
 
-func addOrder(user_id int, books decoder.OrderCreate) (int, error) {
+func AddOrder(order decoder.ServerOrder) (int, error) {
 	var id int
 	db, err := sql.Open("postgres", PsqlInfo)
 	if err != nil {
@@ -26,7 +26,7 @@ func addOrder(user_id int, books decoder.OrderCreate) (int, error) {
 	query := fmt.Sprintf(`
 	with o_id as (INSERT INTO public."orders" ("user_id", "status") VALUES ('%d', 'формируется') RETURNING "id")
 	INSERT INTO public."orders_books"  ("order_id", "book_id", "amount")
-	SELECT o_id, unnest({%s}::int[]), unnest({%s}::int[]));`, user_id, intToString(books.Book_IDs), intToString(books.Amounts)) //CHECK
+	SELECT o_id, unnest({%s}::int[]), unnest({%s}::int[]));`, order.UserID, intToString(order.Book_IDs), intToString(order.Amounts)) //CHECK
 	row, err := db.Query(query)
 	if err != nil {
 		fmt.Println(err.Error())

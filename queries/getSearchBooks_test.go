@@ -44,7 +44,7 @@ func TestSearch(t *testing.T) {
 		},
 	}
 	for _, book := range testBooks {
-		addBook(book)
+		AddBook(book)
 	}
 	books, err := GetSearchBooks(options)
 	if err != nil {
@@ -56,6 +56,6 @@ func TestSearch(t *testing.T) {
 	for _, book := range books {
 		fmt.Printf("\nBook %d: %d, %s, %s %#v", i, book.ID, book.Name, book.Price, book.Authors)
 		i++
-		deleteBook(book.ID)
+		DeleteBook(book.ID)
 	}
 }

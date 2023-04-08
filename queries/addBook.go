@@ -9,7 +9,7 @@ import (
 	"github.com/Ba1vo/Proektirovanie/decoder"
 )
 
-func addBook(book decoder.FullBook) error {
+func AddBook(book decoder.FullBook) error {
 	db, err := sql.Open("postgres", PsqlInfo) //insert hash code
 	if err != nil {
 		fmt.Println(err.Error())

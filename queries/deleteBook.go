@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-func deleteBook(id int) error {
+func DeleteBook(id int) error {
 	db, err := sql.Open("postgres", PsqlInfo) //insert hash code
 	if err != nil {
 		fmt.Println(err.Error())

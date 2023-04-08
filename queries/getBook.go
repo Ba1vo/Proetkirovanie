@@ -9,7 +9,7 @@ import (
 	"github.com/Ba1vo/Proektirovanie/decoder"
 )
 
-func getBook(id int) (decoder.FullBook, error) {
+func GetBook(id int) (decoder.FullBook, error) {
 	var book decoder.FullBook
 	db, err := sql.Open("postgres", PsqlInfo)
 	if err != nil {
