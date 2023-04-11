@@ -38,7 +38,7 @@ func GetBook(id int) (decoder.FullBook, error) {
 		b."amount", 
 		string_agg(au."disp_name", ', '), 
 		string_agg(g."name", ', '), 
-		string_agg(p."name", ', '), 
+		string_agg(p."name", ', ') 
 	FROM "books" AS b
 	JOIN "books_authors" AS ba ON ba."book_id" = b."id"
 	JOIN "authors" AS au ON au."id" = ba."author_id"
@@ -54,7 +54,7 @@ func GetBook(id int) (decoder.FullBook, error) {
 	row, err := db.Query(query)
 	if err != nil {
 		fmt.Println(err.Error())
-		return book, errors.New("Querie error")
+		return book, errors.New("auerie error")
 	}
 	defer row.Close()
 	if row.Next() {
@@ -62,8 +62,8 @@ func GetBook(id int) (decoder.FullBook, error) {
 		row.Scan(&book.ID, &book.ISBN, &book.Photo, &book.Date, &book.Desc, &book.Price, &book.Discount,
 			&book.Dimensions[0], &book.Dimensions[1], &book.Dimensions[2], &book.Amount, &authors, &genres, &publishers)
 		book.Authors = strings.Split(authors, ", ")
-		book.Genres = strings.Split(authors, ", ")
-		book.Publishers = strings.Split(authors, ", ")
+		book.Genres = strings.Split(genres, ", ")
+		book.Publishers = strings.Split(publishers, ", ")
 		return book, nil
 	} else {
 		return book, errors.New("Empty")

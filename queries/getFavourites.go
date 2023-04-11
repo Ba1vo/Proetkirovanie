@@ -9,7 +9,7 @@ import (
 	"github.com/Ba1vo/Proektirovanie/decoder"
 )
 
-func GetSearchBooks(options decoder.SearchOptions) ([]decoder.CardBook, error) {
+func GetFavourites(id int) ([]decoder.CardBook, error) {
 	var Books []decoder.CardBook
 	db, err := sql.Open("postgres", PsqlInfo)
 	if err != nil {
@@ -23,8 +23,6 @@ func GetSearchBooks(options decoder.SearchOptions) ([]decoder.CardBook, error) {
 		return Books, errors.New("connection error")
 	}
 
-	searchString := strings.Replace(options.Str, " ", " & ", -1)
-	searchString = strings.ToLower(searchString)
 	query := fmt.Sprintf(
 		`SELECT 
 		b."id", 
@@ -34,14 +32,13 @@ func GetSearchBooks(options decoder.SearchOptions) ([]decoder.CardBook, error) {
 		b."discount", 
 		b."amount",
 		b."image"
-	FROM "books" AS b
-    LEFT JOIN "search_vectors" AS srch ON srch."book_id" = b."id"
+	FROM "favourites" AS f
+    LEFT JOIN "books" AS b ON b."id" = f."book_id"
 	LEFT JOIN "books_authors" AS ba ON ba."book_id" = b."id"
 	LEFT JOIN "authors" AS au ON au."id" = ba."author_id"
     
-	WHERE srch."vector" @@ to_tsquery('%s')
-	GROUP BY b."id", "vector"
-    ORDER BY ts_rank("vector", to_tsquery('%s')) DESC`, searchString, searchString)
+	WHERE f."user_id" = %d
+	GROUP BY f."book_id";`, id)
 
 	rows, err := db.Query(query)
 	if err != nil {

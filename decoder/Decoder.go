@@ -18,6 +18,7 @@ type InfoUser struct {
 	Email string
 	Pass  string
 	Date  string
+	Role  int
 }
 
 type AuthUser struct {

@@ -9,9 +9,9 @@ import (
 
 func main() {
 	r := mux.NewRouter()
-	FileDirectory := http.Dir("./assets/")
-	FileHandler := http.StripPrefix("/assets/", http.FileServer(FileDirectory))
-	r.PathPrefix("/api/assets/").Handler(FileHandler).Methods("GET")
+	FileDirectory := http.Dir("./ui/build/")
+	FileHandler := http.StripPrefix("/", http.FileServer(FileDirectory))
+	r.PathPrefix("/").Handler(FileHandler).Methods("GET")
 	r.HandleFunc("/api/login", handlers.Login).Methods("POST")
 	r.HandleFunc("/api/register", handlers.Register).Methods("POST")
 	r.HandleFunc("/verify", handlers.Verify).Methods("POST")

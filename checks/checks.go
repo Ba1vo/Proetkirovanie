@@ -1,6 +1,7 @@
 package checks
 
 import (
+	"fmt"
 	"net/mail"
 	"regexp"
 
@@ -39,14 +40,17 @@ func CheckAdress(Adress string) bool {
 func CheckBook(Book decoder.FullBook) bool {
 	for _, v := range Book.Authors {
 		if !(checkDispAuthor(v)) {
+			fmt.Println("auth")
 			return false
 		}
 	}
 	for _, v := range Book.Publishers {
 		if !(checkPublisher(v)) {
+			fmt.Println("pub")
 			return false
 		}
 	}
+	fmt.Println("smth else")
 	return checkISBN(Book.ISBN) && checkPrice(Book.Price) && checkDesc(Book.Desc)
 }
 
@@ -71,7 +75,7 @@ func CheckEmail(Email string) bool {
 }
 
 func checkISBN(ISBN string) bool {
-	if len(ISBN) != 18 {
+	if len(ISBN) != 17 {
 		return false
 	}
 	regexp := regexp.MustCompile(`^[0-9]{3}\-[0-9]{1,8}\-[0-9]{1,8}\-[0-9]{1,8}\-[0-9X]$`)
@@ -84,17 +88,17 @@ func checkPrice(Price string) bool {
 }
 
 func checkDesc(Desc string) bool {
-	regexp := regexp.MustCompile(`^([A-яЁё\,\(\)\!\?\"]|\d)?$`)
+	regexp := regexp.MustCompile(`^[\p{L}\d\s\?\!\(\)]+$`)
 	return regexp.Match([]byte(Desc))
 }
 
 func checkPublisher(Publisher string) bool {
-	regexp := regexp.MustCompile(`^(p{L}|\w){1,40}$`)
+	regexp := regexp.MustCompile(`^[\p{L}\d\s]{1,40}$`)
 	return regexp.Match([]byte(Publisher))
 }
 
 func checkDispAuthor(Author string) bool {
-	regexp := regexp.MustCompile(`^[A-яЁё.]{1,20}$`)
+	regexp := regexp.MustCompile(`^([A-яЁё.\s]{1,20})$`)
 	return regexp.Match([]byte(Author))
 }
 
