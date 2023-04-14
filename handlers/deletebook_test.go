@@ -7,14 +7,10 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"testing"
-
-	"github.com/Ba1vo/Proektirovanie/decoder"
 )
 
 func TestDeleteBook(t *testing.T) {
-	d := decoder.BookId{
-		Id: 5,
-	}
+	d := 5
 	//fmt.Println(checks.CheckBook(d))
 	res, _ := json.Marshal(d) //ds
 	r, _ := http.NewRequest("POST", "http://localhost:2406/api/book", bytes.NewBuffer(res))

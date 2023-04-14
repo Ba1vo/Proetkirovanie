@@ -82,12 +82,13 @@ type SearchOptions struct {
 	EndDate    string
 }
 
-type BookId struct {
-	Id int
+type FavBook struct {
+	User int
+	Book int
 }
 
 type Decodable interface {
-	*RegUser | *AuthUser | *Order | *FullBook | *BookId | *ServerOrder | *SearchOptions
+	*RegUser | *AuthUser | *Order | *FullBook | *FavBook | *ServerOrder | *SearchOptions | *int
 }
 
 type Writable interface {

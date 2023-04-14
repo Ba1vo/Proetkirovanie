@@ -8,12 +8,12 @@ import (
 )
 
 func DeleteBook(w http.ResponseWriter, r *http.Request) {
-	var d decoder.BookId
+	var d int
 	if decoder.DecodeJSON(&d, r) {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
-	err := queries.DeleteBook(d.Id)
+	err := queries.DeleteBook(d)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		return

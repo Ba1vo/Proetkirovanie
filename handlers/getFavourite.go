@@ -2,19 +2,13 @@ package handlers
 
 import (
 	"encoding/json"
-	"errors"
 	"net/http"
 
 	"github.com/Ba1vo/Proektirovanie/decoder"
 	"github.com/Ba1vo/Proektirovanie/queries"
 )
 
-var ErrCreds = errors.New("creds error")
-var ErrConnection = errors.New("connection error")
-var ErrQuerie = errors.New("querie error")
-var ErrEmpty = errors.New("empty")
-
-func Book(w http.ResponseWriter, r *http.Request) {
+func GetFavourites(w http.ResponseWriter, r *http.Request) {
 	var d int
 	if decoder.DecodeJSON(&d, r) {
 		w.WriteHeader(http.StatusInternalServerError)
@@ -24,16 +18,12 @@ func Book(w http.ResponseWriter, r *http.Request) {
 	//	w.WriteHeader(http.StatusInternalServerError)
 	//	return
 	//}
-	book, err := queries.GetBook(d)
-	if err == ErrEmpty {
-		w.WriteHeader(http.StatusBadRequest)
-		return
-	}
+	books, err := queries.GetFavourites(d)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
-	output, err := json.Marshal(book)
+	output, err := json.Marshal(books)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		return

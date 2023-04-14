@@ -11,7 +11,7 @@ import (
 	"time"
 )
 
-var secretKey, _ = hex.DecodeString("9d4eace8a07632ede8235878dd7eaa399b0e1bc4163307c8067f9c039b2ef78c")
+//var secretKey, _ = hex.DecodeString("9d4eace8a07632ede8235878dd7eaa399b0e1bc4163307c8067f9c039b2ef78c")
 
 func Hash(str string) string {
 	encoder := hmac.New(sha256.New, []byte("9d4eace8a07632ede8235878dd7eaa399b0e1bc4163307c8067f9c039b2ef78c"))
