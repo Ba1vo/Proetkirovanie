@@ -61,9 +61,14 @@ func GetBook(id int) (decoder.FullBook, error) {
 		var authors, genres, publishers string
 		row.Scan(&book.ID, &book.ISBN, &book.Photo, &book.Date, &book.Desc, &book.Price, &book.Discount,
 			&book.Dimensions[0], &book.Dimensions[1], &book.Dimensions[2], &book.Amount, &authors, &genres, &publishers)
+		fmt.Println(book.Amount)
+		fmt.Println(book.Name)
 		book.Authors = strings.Split(authors, ", ")
+		fmt.Println(book.Authors)
 		book.Genres = strings.Split(genres, ", ")
+		fmt.Println(book.Genres)
 		book.Publishers = strings.Split(publishers, ", ")
+		fmt.Println(book.Publishers)
 		return book, nil
 	} else {
 		return book, errors.New("Empty")

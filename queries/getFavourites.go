@@ -31,14 +31,14 @@ func GetFavourites(id int) ([]decoder.CardBook, error) {
 		b."price", 
 		b."discount", 
 		b."amount",
-		b."image"
+		b."photo"
 	FROM "favourites" AS f
     LEFT JOIN "books" AS b ON b."id" = f."book_id"
 	LEFT JOIN "books_authors" AS ba ON ba."book_id" = b."id"
 	LEFT JOIN "authors" AS au ON au."id" = ba."author_id"
     
 	WHERE f."user_id" = %d
-	GROUP BY f."book_id";`, id)
+	GROUP BY b."id";`, id)
 
 	rows, err := db.Query(query)
 	if err != nil {

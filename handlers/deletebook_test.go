@@ -10,7 +10,7 @@ import (
 )
 
 func TestDeleteBook(t *testing.T) {
-	d := 5
+	d := 30
 	//fmt.Println(checks.CheckBook(d))
 	res, _ := json.Marshal(d) //ds
 	r, _ := http.NewRequest("POST", "http://localhost:2406/api/book", bytes.NewBuffer(res))

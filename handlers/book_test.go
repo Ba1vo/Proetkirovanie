@@ -7,6 +7,8 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"testing"
+
+	"github.com/Ba1vo/Proektirovanie/decoder"
 )
 
 func TestGetBook(t *testing.T) {
@@ -20,5 +22,7 @@ func TestGetBook(t *testing.T) {
 	r.Header.Set("Content-Type", "application/json")
 	handler.ServeHTTP(rr, r)
 	body, _ := ioutil.ReadAll(rr.Result().Body)
-	t.Logf("Handler returned following status code: %v, book : %s", rr.Result().Status, string(body))
+	var result decoder.FullBook
+	json.Unmarshal(body, &result)
+	t.Logf("Handler returned following status code: %v, book : %v", rr.Result().Status, result)
 }
