@@ -66,7 +66,6 @@ type Order struct {
 }
 
 type ServerOrder struct {
-	ID       int
 	UserID   int
 	Adress   string
 	Status   string
@@ -88,7 +87,7 @@ type FavBook struct {
 }
 
 type Decodable interface {
-	*RegUser | *AuthUser | *Order | *FullBook | *FavBook | *ServerOrder | *SearchOptions | *int
+	*RegUser | *AuthUser | *Order | *FullBook | *FavBook | *ServerOrder | *SearchOptions | *int | *[]int
 }
 
 type Writable interface {

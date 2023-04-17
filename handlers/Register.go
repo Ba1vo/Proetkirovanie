@@ -28,11 +28,16 @@ func Register(w http.ResponseWriter, r *http.Request) {
 	d.Pass = crypt.Hash(d.Pass)
 	err := queries.AddUser(d)
 	if err == nil {
-		if Error := email.Email(d.Email, generator.RandStringBytes()); Error != nil {
+		code := generator.RandStringBytes()
+		if err := queries.SetUserCode(d.Email, code); err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			return
 		}
-		w.Write(nil)
+		if err := email.Email(d.Email, code); err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+			return
+		}
+		w.WriteHeader(http.StatusOK)
 	} else {
 		w.WriteHeader(http.StatusBadRequest)
 		return

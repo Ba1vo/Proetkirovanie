@@ -33,7 +33,7 @@ func GetSearchBooks(options decoder.SearchOptions) ([]decoder.CardBook, error) {
 		b."price", 
 		b."discount", 
 		b."amount",
-		b."image"
+		b."photo"
 	FROM "books" AS b
     LEFT JOIN "search_vectors" AS srch ON srch."book_id" = b."id"
 	LEFT JOIN "books_authors" AS ba ON ba."book_id" = b."id"
@@ -41,7 +41,7 @@ func GetSearchBooks(options decoder.SearchOptions) ([]decoder.CardBook, error) {
     
 	WHERE srch."vector" @@ to_tsquery('%s')
 	GROUP BY b."id", "vector"
-    ORDER BY ts_rank("vector", to_tsquery('%s')) DESC`, searchString, searchString)
+    ORDER BY ts_rank("vector", to_tsquery('%s')) DESC;`, searchString, searchString)
 
 	rows, err := db.Query(query)
 	if err != nil {

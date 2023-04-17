@@ -4,33 +4,52 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
+	"strings"
 
 	"github.com/Ba1vo/Proektirovanie/decoder"
 )
 
-func UpdateOrder(order decoder.ServerOrder) error {
+func UpdateOrder(book_ids []int) ([]decoder.CardBook, error) {
+	var books []decoder.CardBook
 	db, err := sql.Open("postgres", PsqlInfo)
 	if err != nil {
 		fmt.Println(err.Error())
-		return errors.New("Creds error")
+		return books, errors.New("creds error")
 	}
 	defer db.Close()
 	err = db.Ping()
 	if err != nil {
 		fmt.Println(err.Error())
-		return errors.New("Connection error")
+		return books, errors.New("connection error")
 	}
 	query := fmt.Sprintf(`
-	with o_id as (UPDATE public."orders" ("adress", "status") VALUES ('%s', '%s') WHERE id = %d AND user_id = %d RETURNING "id")
-	with w as (DELETE FROM public."orders_books" WHERE "order_id" = %d)
-	INSERT INTO public."orders_books" ("order_id", "book_id", "amount")
-	SELECT o_id, unnest({%s}::int[]), unnest({%s}::int[]));`,
-		order.Adress, order.Status, order.ID, order.UserID, order.ID, intToString(order.Book_IDs), intToString(order.Amounts)) //CHECK
-	row, err := db.Query(query)
+	SELECT 
+		b."id", 
+		b."name", 
+		string_agg(au."disp_name", ', '), 
+		b."price", 
+		b."discount", 
+		b."amount",
+		b."photo"
+	FROM "books" AS b
+	LEFT JOIN "books_authors" AS ba ON ba."book_id" = b."id"
+	LEFT JOIN "authors" AS au ON au."id" = ba."author_id"
+	WHERE b."id" IN (%s)
+	GROUP BY b."id";`,
+		intToString(book_ids)) //CHECK
+	rows, err := db.Query(query)
 	if err != nil {
 		fmt.Println(err.Error())
-		return errors.New("Querie error")
+		return books, errors.New("querie error")
 	}
-	defer row.Close()
-	return nil
+	defer rows.Close()
+
+	for rows.Next() {
+		var book decoder.CardBook
+		var array string
+		rows.Scan(&book.ID, &book.Name, &array, &book.Price, &book.Discount, &book.Amount, &book.Photo)
+		book.Authors = strings.Split(array, ", ")
+		books = append(books, book)
+	}
+	return books, nil
 }

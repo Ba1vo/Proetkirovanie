@@ -15,22 +15,23 @@ func AddOrder(order decoder.ServerOrder) (int, error) {
 	db, err := sql.Open("postgres", PsqlInfo)
 	if err != nil {
 		fmt.Println(err.Error())
-		return id, errors.New("Creds error")
+		return id, errors.New("creds error")
 	}
 	defer db.Close()
 	err = db.Ping()
 	if err != nil {
 		fmt.Println(err.Error())
-		return id, errors.New("Connection error")
+		return id, errors.New("connection error")
 	}
 	query := fmt.Sprintf(`
-	with o_id as (INSERT INTO public."orders" ("user_id") VALUES ('%d') RETURNING "id")
-	INSERT INTO public."orders_books"  ("order_id", "book_id", "amount")
-	SELECT o_id, unnest({%s}::int[]), unnest({%s}::int[]));`, order.UserID, intToString(order.Book_IDs), intToString(order.Amounts)) //CHECK
+	with o_id as (INSERT INTO public."orders" ("user_id", "adress") VALUES ('%d', '%s') RETURNING "id")
+	INSERT INTO public."orders_books" ("order_id", "book_id", "amount")
+	SELECT "id", unnest('{%s}'::int[]), unnest('{%s}'::int[]) FROM o_id;`, order.UserID, order.Adress, intToString(order.Book_IDs), intToString(order.Amounts)) //CHECK
+	fmt.Println(query)
 	row, err := db.Query(query)
 	if err != nil {
 		fmt.Println(err.Error())
-		return id, errors.New("Querie error")
+		return id, errors.New("querie error")
 	}
 	defer row.Close()
 	return id, nil

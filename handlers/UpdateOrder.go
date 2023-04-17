@@ -1,23 +1,20 @@
 package handlers
 
 import (
+	"encoding/json"
 	"net/http"
 
 	"github.com/Ba1vo/Proektirovanie/decoder"
 	"github.com/Ba1vo/Proektirovanie/queries"
 )
 
-func RedactOrder(w http.ResponseWriter, r *http.Request) {
-	var d decoder.ServerOrder
+func UpdateOrder(w http.ResponseWriter, r *http.Request) {
+	var d []int
 	if decoder.DecodeJSON(&d, r) {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
-	//if !(checks.CheckUserAuth(d)) {
-	//	w.WriteHeader(http.StatusInternalServerError)
-	//	return
-	//}
-	err := queries.UpdateOrder(d)
+	books, err := queries.UpdateOrder(d)
 	if err == ErrEmpty {
 		w.WriteHeader(http.StatusBadRequest)
 		return
@@ -26,6 +23,11 @@ func RedactOrder(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
-	w.WriteHeader(http.StatusOK)
+	output, err := json.Marshal(books)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
 	//crypt.SetCookies(w, fullUser.ID)
+	w.Write(output)
 }
