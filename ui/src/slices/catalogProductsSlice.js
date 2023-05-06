@@ -40,9 +40,9 @@ const discountedProductsSlice = createSlice({
         state.products.error = false
       })
       .addCase(getProducts.fulfilled, (state, action) => {
-        console.log(action.payload)
+        console.log(String(action.payload) === "null" ? true : false)
         state.products.products = action.payload
-        state.products.count = action.payload.length
+        state.products.count = String(action.payload) === "null" ? 0 : action.payload.length
         state.products.loading = false
       })
       .addCase(getProducts.rejected, (state) => {

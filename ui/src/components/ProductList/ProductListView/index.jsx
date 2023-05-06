@@ -3,8 +3,8 @@ import ProductCard from '../../ProductCard'
 
 import './style.scss'
 
-const ProductList = ({ products, pageCount, forcePage, onPageClick }) => {
-  if (products.length === 0) {
+const ProductList = ({ products, pageCount, forcePage, onPageClick, count }) => {
+  if (count === 0) {
     return (
       <div className='product-list product-list_not-found'>
         Товаров не найдено

@@ -3,9 +3,14 @@ import PropTypes from 'prop-types'
 
 import './style.scss'
 
-const Button = ({ children, className, ...rest }) => {
+const Button = ({ children, outlined, className, ...rest }) => {
   return (
-    <button className={classNames('button', className)} {...rest}>
+    <button
+      className={classNames('button', className, {
+        'button_outlined': outlined,
+      })}
+      {...rest}
+    >
       {children}
     </button>
   )

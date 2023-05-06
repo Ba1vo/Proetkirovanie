@@ -29,6 +29,7 @@ func main() {
 	r.HandleFunc("/api/redactOrder", handlers.UpdateOrder).Methods("POST")
 	r.HandleFunc("/api/refresh", handlers.Refresh).Methods("POST")
 	r.HandleFunc("/api/cookie", handlers.CookieLogin).Methods("POST")
+	r.HandleFunc("/api/filters", handlers.GetFilters).Methods("POST")
 
 	r.HandleFunc("/api/emp/deleteBook", handlers.DeleteBook).Methods("POST")
 	r.HandleFunc("/api/emp/addBook", handlers.AddBook).Methods("POST")

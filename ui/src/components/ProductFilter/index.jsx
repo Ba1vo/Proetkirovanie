@@ -25,16 +25,18 @@ const ProductFilter = () => {
   const dispatch = useDispatch()
 
   const submitHandler = (data) => {
-    const { minPrice, maxPrice } = filters
 
-    if (data['min_price'] && Number(data['min_price']) < minPrice) {
-      data['min_price'] = minPrice
-      setValue('min_price', minPrice)
+    console.log(data)
+    const { MinPrice, MaxPrice } = filters
+
+    if (data['min_price'] && Number(data['min_price']) < MinPrice) {
+      data['min_price'] = MinPrice
+      setValue('min_price', MinPrice)
     }
 
-    if (data['max_price'] && Number(data['max_price']) > maxPrice) {
-      data['max_price'] = maxPrice
-      setValue('max_price', maxPrice)
+    if (data['max_price'] && Number(data['max_price']) > MaxPrice) {
+      data['max_price'] = MaxPrice
+      setValue('max_price', MaxPrice)
     }
 
     if (

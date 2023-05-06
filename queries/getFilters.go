@@ -23,14 +23,14 @@ func GetFilters() (decoder.SearchOptions, error) {
 		return options, errors.New("connection error")
 	}
 
-	query := fmt.Sprintf(
+	query :=
 		`SELECT 
-			MAX(b."pub_date"), 
-			MIN(b."pub_date"),
+			to_char(MAX(b."pub_date"), 'YYYY-MM-DD'),
+			to_char(MIN(b."pub_date"), 'YYYY-MM-DD'),
 			MAX(b."price"), 
 			MIN(b."price"), 
 			(SELECT string_agg(g."name", ', ') AS genres FROM public.genres AS g )
-		FROM public.books as b;`)
+		FROM public.books as b;`
 
 	rows, err := db.Query(query)
 	if err != nil {
@@ -41,11 +41,9 @@ func GetFilters() (decoder.SearchOptions, error) {
 
 	for rows.Next() {
 		var genres string
-		//var amount int
 		rows.Scan(&options.MaxDate, &options.MinDate, &options.MaxPrice, &options.MinPrice, &genres)
 		options.Genres = strings.Split(genres, ", ")
-		//book.Amount = amount
-	} // if 0 books found,
+	}
 
 	return options, nil
 }

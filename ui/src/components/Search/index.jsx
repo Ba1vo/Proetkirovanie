@@ -24,7 +24,7 @@ const Search = ({ className }) => {
 
   const Search = async (e) => {
     e.preventDefault()
-    navigate(`/catalog?&page_size=9&str=${state}`)
+    navigate(`/catalog?&page_size=9&str=${state ? state : ""}`)
   }
 
   return (

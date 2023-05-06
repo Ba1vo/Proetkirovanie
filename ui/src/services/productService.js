@@ -11,17 +11,17 @@ class ProductService {
     return res.data
   }
 
-  static async addFav(options) {
+  static async addFavourite(options) {
     const res = await publicApi.post('/addFavourite', options)
     return res.data
   }
 
-  static async removeFav(options) {
+  static async removeFavourite(options) {
     const res = await publicApi.post('/deleteFavourite', options)
     return res.data
   }
 
-  static async getFav(id) {
+  static async getFavourite(id) {
     const res = await publicApi.post('/getFavourites', id)
     return res.data
   }
@@ -41,6 +41,11 @@ class ProductService {
 
   static async addOrder(order) {
     const res = await publicApi.post('/createOrder', order)
+    return res.data
+  }
+
+  static async getFilters() {
+    const res = await publicApi.post('/filters', )
     return res.data
   }
 

@@ -62,6 +62,7 @@ const ProductList = () => {
           pageCount={pageCount}
           forcePage={currentPage}
           onPageClick={onPageClick}
+          count = {count}
         />
       ) : null}
     </div>

@@ -3,11 +3,10 @@ import { useState } from 'react'
 import classNames from 'classnames'
 import PropTypes from 'prop-types'
 import { AiOutlineClose } from 'react-icons/ai'
-
+import Slider from '@mui/material/Slider';
 import Accordion from '../../Accordion'
 import Button from '../../Button'
 import CheckboxList from '../../CheckboxList'
-import CheckboxSearchList from '../../CheckboxSearchList'
 import FilterRange from '../../FilterRange'
 
 import './style.scss'
@@ -20,11 +19,19 @@ const ProductFilter = ({
   onSubmit,
   onReset,
 }) => {
-  const { minPrice, maxPrice, color, sugarType, country, volume } = filters
+  const { MinPrice, MaxPrice, Genres, MinDate, MaxDate } = filters
   const [filterOpen, setFilterOpen] = useState(false)
-
+  const [dates, setDates] = useState([Number(MinDate.slice(0,4)), Number(MaxDate.slice(0,4))])
   const onFilterClick = () => {
     setFilterOpen((filterOpen) => !filterOpen)
+  } 
+
+  function valuetext(value) {
+    return `${value}г.`;
+  }
+  const onDateChange = (event, value) => {
+    setDates(value)
+    setValue('dates', value)
   }
 
   return (
@@ -44,36 +51,38 @@ const ProductFilter = ({
         </div>
         <Accordion title='Цена, ₽' defaultOpen>
           <FilterRange
-            min={minPrice}
-            max={maxPrice}
+            min={MinPrice}
+            max={MaxPrice}
             minInputName='min_price'
             maxInputName='max_price'
             setValue={setValue}
             register={register}
           />
         </Accordion>
-        <Accordion title='Страна' defaultOpen>
-          <CheckboxSearchList
-            name='country'
-            searchInputName='country_term'
-            watch={watch}
-            values={country}
-            register={register}
-          />
+        <Accordion title='Дата печати'>
+        <div className='accordion__title'>{dates[0]} 
+          <span style={{float:"right"}}>
+            {dates[1]}
+          </span>
+        </div>
+        <Slider 
+          disableSwap = {true}
+          getAriaLabel={() => 'Date'}
+          name='dates' 
+          value={dates}
+          onChange={onDateChange}
+          min={Number(MinDate.slice(0,4))} 
+          max={Number(MaxDate.slice(0,4))}
+          valueLabelDisplay="off"
+          getAriaValueText={valuetext}
+        >
+        </Slider>
         </Accordion>
-        <Accordion title='Цвет' defaultOpen>
-          <CheckboxList name='color' values={color} register={register} />
+        <Accordion title='Жанры' defaultOpen>
+          <CheckboxList name='genres' values={Genres} register={register} />
         </Accordion>
-        <Accordion title='Сладость' defaultOpen>
-          <CheckboxList
-            name='sugar_type'
-            values={sugarType}
-            register={register}
-          />
-        </Accordion>
-        <Accordion title='Объём, л'>
-          <CheckboxList name='volume' values={volume} register={register} />
-        </Accordion>
+
+       
         <Button className='product-filter__btn' type='submit'>
           Применить
         </Button>
