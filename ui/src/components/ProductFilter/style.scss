@@ -1,0 +1,24 @@
+@import '../../scss/variables';
+
+.product-filter-container {
+  flex: 1 0 260px;
+
+  @media (max-width: 835px) {
+    flex: 1 0 auto;
+  }
+
+  &_not-loaded {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 921px;
+    background-color: $light-gray;
+    border-radius: 10px;
+
+    @media (max-width: 835px) {
+      width: 100%;
+      height: auto;
+      padding: 5px 0;
+    }
+  }
+}

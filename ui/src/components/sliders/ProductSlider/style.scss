@@ -1,0 +1,44 @@
+@import '../../../scss/variables';
+
+.product-slider {
+  .swiper-slide {
+    display: flex;
+    justify-content: center;
+    padding: 0 7px;
+  }
+
+  .swiper-button-prev,
+  .swiper-button-next {
+    top: 130px;
+  }
+
+  .swiper-button-prev {
+    left: 0;
+  }
+
+  .swiper-button-next {
+    right: 0;
+  }
+
+  &__topic {
+    margin: 0 0 40px;
+    font-size: 30px;
+    font-weight: 900;
+
+    @media (max-width: $bp768) {
+      font-size: 20px;
+    }
+  }
+
+  &__wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 353px;
+    border-radius: 10px;
+
+    &_not-loaded {
+      background-color: $light-gray;
+    }
+  }
+}

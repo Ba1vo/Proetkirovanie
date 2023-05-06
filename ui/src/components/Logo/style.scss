@@ -1,0 +1,10 @@
+@import '../../scss/variables';
+
+.logo {
+  &__img {
+    @media (max-width: $bp768) {
+      width: 128px;
+      height: 41px;
+    }
+  }
+}

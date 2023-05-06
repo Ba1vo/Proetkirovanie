@@ -1,0 +1,59 @@
+@import '../../../scss/variables';
+
+.swiper-button-prev::after {
+  right: 2px;
+}
+
+.swiper-button-next::after {
+  left: 2px;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  width: 40px;
+  height: 40px;
+  background-color: $background-light;
+  border-radius: 20px;
+  transition: background-color 0.3s ease;
+
+  @media (max-width: $bp768) {
+    display: none;
+  }
+
+  &::after {
+    position: relative;
+    font-size: 24px;
+    font-weight: 900;
+    color: $text;
+    transition: color 0.2s ease;
+  }
+
+  &:hover {
+    color: $text-light;
+    background-color: $primary;
+
+    &::after {
+      color: inherit;
+    }
+  }
+
+  &.swiper-button-disabled {
+    pointer-events: all;
+  }
+
+  &:hover.swiper-button-disabled {
+    color: $text;
+    background-color: transparent;
+  }
+}
+
+.swiper-pagination {
+  &-bullet {
+    background-color: $background-light;
+    opacity: 1;
+
+    &-active {
+      background-color: $primary;
+    }
+  }
+}

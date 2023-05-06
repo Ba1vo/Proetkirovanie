@@ -1,0 +1,19 @@
+@import '../../scss/variables';
+
+.error-indicator {
+  padding: 0 10px;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.3;
+  color: $primary;
+  text-align: center;
+  letter-spacing: 0.03em;
+
+  @media (max-width: $bp768) {
+    font-size: 20px;
+  }
+
+  @media (max-width: $bp480) {
+    font-size: 18px;
+  }
+}

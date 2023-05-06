@@ -1,0 +1,29 @@
+@import '../../../scss/variables';
+
+.banner-slider {
+  position: relative;
+  padding: 0 0 37.5%;
+
+  &__content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $light-gray;
+  }
+
+  &__content,
+  &__slider {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+  }
+
+  &__img {
+    width: 100%;
+    user-select: none;
+    background-size: cover;
+  }
+}

@@ -1,0 +1,22 @@
+@import '../../../scss/variables';
+
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 334px;
+
+  & > *:not(:last-child) {
+    margin: 0 0 20px;
+  }
+
+  &__error {
+    padding: 6px;
+    margin: -5px 0 0;
+    font-size: 18px;
+    color: $primary;
+    text-align: center;
+    border: 1px solid $primary;
+    border-radius: 7px;
+  }
+}

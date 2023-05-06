@@ -1,0 +1,41 @@
+@import '../../../scss/variables';
+
+.field {
+  &__container {
+    position: relative;
+  }
+
+  &__input {
+    width: 100%;
+    height: 45px;
+    padding: 13px;
+    font-size: 20px;
+    font-weight: 300;
+    color: $text;
+    border: 1px solid $gray;
+    border-radius: 10px;
+    box-shadow: inset 0 0 0 50px $background-light;
+
+    &::placeholder {
+      color: $gray;
+    }
+
+    &_error {
+      border: 1px solid $primary;
+    }
+  }
+
+  &__optional-element {
+    position: absolute;
+    top: 50%;
+    right: 13px;
+    transform: translateY(-50%);
+  }
+
+  &__error {
+    margin: 7px 0 0;
+    font-size: 18px;
+    line-height: 1.2;
+    color: $primary;
+  }
+}

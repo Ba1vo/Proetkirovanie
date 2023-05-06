@@ -1,0 +1,192 @@
+@import '../../scss/variables';
+
+.product {
+  font-weight: 300;
+
+  &__content {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 40px;
+  }
+
+  &__picture {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    width: 30%;
+    min-width: 240px;
+    height: 240px;
+    margin-top: 27px;
+  }
+
+  &__article {
+    font-size: 20px;
+    font-weight: 300;
+    color: $gray;
+  }
+
+  &__img {
+    height: 100%;
+    margin: 0 auto;
+  }
+
+  &__discount {
+    position: absolute;
+    top: 0;
+    padding: 5px 6px;
+    font-size: 20px;
+    color: $text-light;
+    background-color: $primary;
+    border-radius: 7px;
+  }
+
+  &__like {
+    position: absolute;
+    top: 0;
+    right: 8px;
+    z-index: 2;
+    cursor: pointer;
+    fill: $text;
+    transition: fill 0.3s ease;
+
+    &:hover {
+      fill: $primary;
+    }
+
+    &_active {
+      fill: $primary;
+    }
+  }
+
+  &__info {
+    width: 30%;
+    min-width: 290px;
+    height: 240px;
+    margin-top: 27px;
+  }
+
+  &__feature {
+    display: inline-block;
+    width: 50%;
+    margin-top: 30px;
+    font-size: 20px;
+    font-weight: 300;
+    color: $gray;
+  }
+
+  &__name {
+    margin-bottom: 12px;
+    font-size: 36px;
+    font-weight: 900;
+  }
+
+  &__buy {
+    position: relative;
+    width: 30%;
+    min-width: 290px;
+    height: 210px;
+    margin-top: 70px;
+  }
+
+  &__price {
+    display: flex;
+    flex-direction: row;
+    width: fit-content;
+    margin-top: 5px;
+    font-size: 36px;
+    font-weight: 400;
+  }
+
+  &__old-price {
+    margin: 16px 10px 0;
+    font-size: 16px;
+    color: $gray;
+    text-decoration: line-through;
+  }
+
+  &__btn {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 2;
+    width: 100%;
+    height: 38px;
+
+    &_in-basket {
+      background-color: $green;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: $dark-green;
+      }
+    }
+  }
+
+  &__avail-and-count {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 25px;
+  }
+
+  &__counter-div {
+    width: fit-content;
+    text-align: right;
+  }
+
+  &__availability {
+    display: inline-block;
+    width: 50%;
+    min-width: 130px;
+  }
+
+  @media (max-width: 985px) {
+    &__name {
+      font-size: 25px;
+      font-weight: 900;
+    }
+
+    &__content {
+      display: grid;
+      grid-template-areas:
+        'img img'
+        'info buy';
+    }
+
+    &__picture {
+      grid-area: img;
+      width: 100%;
+    }
+
+    &__info {
+      grid-area: info;
+      width: 100%;
+    }
+
+    &__buy {
+      grid-area: buy;
+      width: 50%;
+    }
+  }
+
+  @media (max-width: 620px) {
+    &__content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    &__picture {
+      width: 100%;
+    }
+
+    &__info {
+      width: 100%;
+      margin-bottom: 0;
+    }
+
+    &__buy {
+      width: 100%;
+      margin-top: 0 !important;
+    }
+  }
+}

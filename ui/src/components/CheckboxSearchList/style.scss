@@ -1,0 +1,29 @@
+@import '../../scss/variables';
+
+.checkbox-search-list {
+  &__field {
+    margin: 0 0 15px;
+
+    input {
+      padding-right: 40px;
+    }
+  }
+
+  &__search-icon {
+    width: 18px;
+    height: 18px;
+    vertical-align: top;
+    fill: $gray;
+  }
+
+  &__not-found-message {
+    display: block;
+    font-weight: 300;
+    text-align: center;
+  }
+
+  &__list {
+    max-height: 200px;
+    overflow: auto;
+  }
+}

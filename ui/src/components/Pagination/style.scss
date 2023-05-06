@@ -1,0 +1,83 @@
+@import '../../scss/variables';
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+
+  &__body {
+    display: flex;
+  }
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+    color: $gray;
+    cursor: pointer;
+    background-color: $background-light;
+    border: 1px solid $gray;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+
+    @media (max-width: 400px) {
+      width: 31px;
+      height: 31px;
+    }
+
+    &:hover {
+      color: $text;
+      border-color: $text;
+    }
+  }
+
+  li {
+    &:not(:last-child) {
+      margin: 0 8px 0 0;
+    }
+
+    &.selected a {
+      color: $primary;
+      border-color: $primary;
+    }
+
+    svg {
+      fill: $gray;
+      transition: fill 0.3s ease;
+    }
+
+    &.previous svg {
+      rotate: (90deg);
+    }
+
+    &.next svg {
+      rotate: (-90deg);
+    }
+
+    &.previous,
+    &.next {
+      @media (max-width: 400px) {
+        display: none;
+      }
+
+      a {
+        border-color: transparent;
+      }
+
+      &:hover svg {
+        fill: $text;
+      }
+
+      &.disabled {
+        pointer-events: none;
+
+        svg {
+          fill: #e0e0e0;
+        }
+      }
+    }
+  }
+}

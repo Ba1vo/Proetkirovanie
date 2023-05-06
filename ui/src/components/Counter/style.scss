@@ -1,0 +1,55 @@
+@import '../../scss/variables';
+
+.counter {
+  right: 5px;
+  bottom: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 82px;
+
+  &__plus-div {
+    display: block;
+    margin-left: 5px;
+  }
+
+  &__minus-div {
+    display: block;
+    margin-right: 5px;
+  }
+
+  &__minus {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+
+    & path {
+      fill: $text;
+      transition: fill 0.3s ease;
+    }
+
+    &:hover path {
+      fill: $primary;
+    }
+  }
+
+  &__plus {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+
+    /* stylelint-disable-next-line no-descending-specificity */
+    & path {
+      fill: $text;
+      transition: fill 0.3s ease;
+    }
+
+    &:hover path {
+      fill: $primary;
+    }
+  }
+
+  &__value {
+    margin-bottom: 5px;
+  }
+}

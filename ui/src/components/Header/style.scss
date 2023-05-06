@@ -1,0 +1,26 @@
+@import '../../scss/variables';
+
+.header {
+  width: 100%;
+
+  &__container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 86px;
+    margin: 0 auto;
+
+    @media (max-width: $bp768) {
+      min-height: 70px;
+    }
+  }
+
+  &__menu {
+    align-self: flex-end;
+    margin: 0 0 17px;
+
+    @media (max-width: $bp768) {
+      margin: 0 0 6px;
+    }
+  }
+}

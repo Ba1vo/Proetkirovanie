@@ -1,0 +1,17 @@
+@import '../../scss/variables';
+
+.filter-range {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &__field {
+    width: 45%;
+  }
+
+  &__dash {
+    width: 14px;
+    height: 1px;
+    background-color: $gray;
+  }
+}

@@ -1,0 +1,118 @@
+@import '../../../scss/variables';
+
+.product-filter {
+  &__mobile-text {
+    display: none;
+
+    @media (max-width: 835px) {
+      display: block;
+      font-size: 20px;
+      font-weight: 300;
+      color: $gray;
+      cursor: pointer;
+    }
+  }
+
+  &__wrapper {
+    position: relative;
+    width: 260px;
+    padding: 0 30px 0 0;
+    border-right: 1px solid $gray;
+
+    & > div:not(:last-of-type) {
+      margin: 0 0 10px;
+    }
+
+    & > div:last-of-type {
+      margin: 0 0 25px;
+    }
+
+    @media (max-width: 835px) {
+      position: fixed;
+      top: 0;
+      left: -100%;
+      z-index: 5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      padding: 100px 30px 80px;
+      margin: auto;
+      overflow: auto;
+      background-color: $background-light;
+      transition: left 0.5s ease;
+
+      & > * {
+        width: 261px;
+      }
+
+      &_open {
+        left: 0;
+      }
+    }
+  }
+
+  &__icon-container {
+    display: none;
+
+    @media (max-width: 835px) {
+      position: relative;
+      z-index: 5;
+      display: block;
+    }
+  }
+
+  &__icon-close {
+    @media (max-width: 835px) {
+      position: absolute;
+      top: -71px;
+      right: -15px;
+      width: 35px;
+      height: 35px;
+      color: $gray;
+      cursor: pointer;
+    }
+  }
+
+  &__price {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__field {
+    width: 45%;
+
+    input {
+      height: 30px;
+      padding: 0 8px;
+      font-size: 16px;
+      border-radius: 5px;
+    }
+  }
+
+  &__dash {
+    width: 14px;
+    height: 1px;
+    background-color: $gray;
+  }
+
+  &__checkbox-list {
+    padding: 0 0 0 20px;
+  }
+
+  &__btn {
+    flex-shrink: 0;
+    width: 100%;
+    height: 38px;
+
+    @media (max-width: 835px) {
+      width: 261px;
+    }
+
+    &:not(:last-child) {
+      margin: 0 0 15px;
+    }
+  }
+}

@@ -1,0 +1,42 @@
+@import '../../scss/variables';
+
+.search {
+  position: relative;
+  width: 100%;
+  height: 47px;
+  margin-top: 30px;
+
+  &__input {
+    width: 100%;
+    height: 47px;
+    padding-left: 13px;
+    font-size: 20px;
+    font-weight: 300;
+    color: $gray;
+    border: 1px solid $gray;
+    border-radius: 10px;
+  }
+
+  &__button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1;
+    width: 63px;
+    height: 47px;
+    background-color: $primary;
+    border-radius: 0 10px 10px 0;
+    transition: background-color 0.3s ease;
+  }
+
+  &__button:hover {
+    background-color: $dark-primary;
+  }
+
+  &__loupe {
+    width: 29px;
+    height: 29px;
+    margin-top: 2px;
+    fill: $background-light;
+  }
+}

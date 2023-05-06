@@ -1,0 +1,10 @@
+@import './reset';
+@import './fonts';
+@import './variables';
+
+body {
+  font-family: $primary-font-family;
+  font-size: 20px;
+  color: $text;
+  background-color: $background-light;
+}

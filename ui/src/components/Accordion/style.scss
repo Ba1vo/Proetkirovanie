@@ -1,0 +1,40 @@
+@import '../../scss/variables';
+
+.accordion {
+  &__title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    font-weight: 300;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  &__icon {
+    fill: $gray;
+    transition: all 0.5s ease;
+
+    &_open {
+      transform: rotate(180deg);
+    }
+  }
+
+  &__title:hover &__icon {
+    fill: $text;
+  }
+
+  &__content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+
+    &_open {
+      max-height: 257px;
+    }
+  }
+
+  &__content-container {
+    padding: 7px 0 0;
+  }
+}
