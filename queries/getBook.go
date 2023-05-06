@@ -27,6 +27,7 @@ func GetBook(id int) (decoder.FullBook, error) {
 	SELECT 
 		b."id", 
 		b."isbn",
+		b."name",
 		b."photo",
 		b."pub_date",
 		b."desc",
@@ -59,7 +60,7 @@ func GetBook(id int) (decoder.FullBook, error) {
 	defer row.Close()
 	if row.Next() {
 		var authors, genres, publishers string
-		row.Scan(&book.ID, &book.ISBN, &book.Photo, &book.Date, &book.Desc, &book.Price, &book.Discount,
+		row.Scan(&book.ID, &book.ISBN, &book.Name, &book.Photo, &book.Date, &book.Desc, &book.Price, &book.Discount,
 			&book.Dimensions[0], &book.Dimensions[1], &book.Dimensions[2], &book.Amount, &authors, &genres, &publishers)
 		fmt.Println(book.Amount)
 		fmt.Println(book.Name)

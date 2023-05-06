@@ -15,6 +15,7 @@ import (
 func Register(w http.ResponseWriter, r *http.Request) {
 	var d decoder.RegUser
 	if decoder.DecodeJSON(&d, r) {
+		fmt.Println("Decoding error")
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
@@ -40,6 +41,7 @@ func Register(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
 	} else {
 		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte("Такая почта занята"))
 		return
 	}
 	w.WriteHeader(http.StatusInternalServerError)

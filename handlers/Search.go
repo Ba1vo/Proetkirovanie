@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 
 	"github.com/Ba1vo/Proektirovanie/decoder"
@@ -10,19 +11,18 @@ import (
 
 func Search(w http.ResponseWriter, r *http.Request) {
 	var d decoder.SearchOptions
-	if decoder.DecodeJSON(&d, r) {
-		w.WriteHeader(http.StatusInternalServerError)
-		return
-	}
+	d.Str = r.URL.Query().Get("str")
 	//if !(checks.CheckUserAuth(d)) {
 	//	w.WriteHeader(http.StatusInternalServerError)
 	//	return
 	//}
+	fmt.Println("search in use")
 	books, err := queries.GetSearchBooks(d)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
+	fmt.Printf("BKS: %v \n", books)
 	output, err := json.Marshal(books)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)

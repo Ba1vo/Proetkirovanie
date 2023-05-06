@@ -30,10 +30,13 @@ func Login(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		crypt.SetCookies(w, fullUser.ID)
+		//w.Header().Add("Access-Control-Allow-Origin", "*")
 		w.Write(output)
+		return
 	}
 	if err.Error() == "Empty" {
 		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte("Неправильная почта или пароль"))
 		return
 	}
 	w.WriteHeader(http.StatusInternalServerError)

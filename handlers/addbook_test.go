@@ -14,6 +14,22 @@ import (
 func TestAddBook(t *testing.T) {
 	d := decoder.FullBook{
 		ID:         0,
+		Name:       "Город и звезды",
+		Price:      "656.55",
+		Discount:   0,
+		ISBN:       "978-5-17-105787-9",
+		Photo:      "default",
+		Desc:       "Артура Кларка Айзека Азимова и Роберта Хайнлайна называют",
+		Dimensions: [3]int{18, 11, 16},
+		Authors:    []string{"Артур Чарльз Кларк"},
+		Publishers: []string{"АСТ"},
+		Genres:     []string{"Фантастика"},
+		Amount:     5,
+		Date:       "2021-10-5",
+	}
+
+	/*{
+		ID:         0,
 		Name:       "Конец вечности",
 		Price:      "555.55",
 		Discount:   5,
@@ -26,7 +42,7 @@ func TestAddBook(t *testing.T) {
 		Genres:     []string{"Фантастика"},
 		Amount:     5,
 		Date:       "2020-10-5",
-	}
+	}*/
 	//fmt.Println(checks.CheckBook(d))
 	res, _ := json.Marshal(d)
 	r, _ := http.NewRequest("POST", "http://localhost:2406/api/book", bytes.NewBuffer(res))

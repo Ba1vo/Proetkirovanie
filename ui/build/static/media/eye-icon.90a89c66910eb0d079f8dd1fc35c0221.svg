@@ -1,0 +1,13 @@
+<svg width="0" height="0" class="hidden" xmlns="http://www.w3.org/2000/svg">
+  <symbol fill="none" viewBox="0 0 24 24" id="false">
+      <path d="M9.7606 14.3668C9.1856 13.7928 8.8356 13.0128 8.8356 12.1378C8.8356 10.3848 10.2476 8.9718 11.9996 8.9718C12.8666 8.9718 13.6646 9.3228 14.2296 9.8968" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
+      <path d="M15.1048 12.6989C14.8728 13.9889 13.8568 15.0069 12.5678 15.2409" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
+      <path d="M6.6546 17.4723C5.0676 16.2263 3.7236 14.4063 2.7496 12.1373C3.7336 9.85829 5.0866 8.02829 6.6836 6.77229C8.2706 5.51629 10.1016 4.83429 11.9996 4.83429C13.9086 4.83429 15.7386 5.52629 17.3356 6.79129" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
+      <path d="M19.4476 8.99078C20.1356 9.90478 20.7406 10.9598 21.2496 12.1368C19.2826 16.6938 15.8066 19.4388 11.9996 19.4388C11.1366 19.4388 10.2856 19.2988 9.4676 19.0258" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
+      <path d="M19.887 4.24957L4.113 20.0236" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
+  </symbol>
+  <symbol fill="none" viewBox="0 0 24 24" id="true">
+      <path filRule="evenodd" clipRule="evenodd" d="M15.1614 12.0531C15.1614 13.7991 13.7454 15.2141 11.9994 15.2141C10.2534 15.2141 8.83838 13.7991 8.83838 12.0531C8.83838 10.3061 10.2534 8.89111 11.9994 8.89111C13.7454 8.89111 15.1614 10.3061 15.1614 12.0531Z" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
+      <path fillRule="evenodd" clipRule="evenodd" d="M11.998 19.3549C15.806 19.3549 19.289 16.6169 21.25 12.0529C19.289 7.48892 15.806 4.75092 11.998 4.75092H12.002C8.194 4.75092 4.711 7.48892 2.75 12.0529C4.711 16.6169 8.194 19.3549 12.002 19.3549H11.998Z" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
+  </symbol>
+</svg>

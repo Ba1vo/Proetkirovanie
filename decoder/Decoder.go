@@ -52,11 +52,6 @@ type CardBook struct {
 	Amount   int
 }
 
-type MainBooks struct {
-	Popular []CardBook
-	New     []CardBook
-}
-
 type Order struct {
 	ID     int
 	Date   string
@@ -74,11 +69,12 @@ type ServerOrder struct {
 }
 
 type SearchOptions struct {
-	Str        string
-	Genre      string
-	Publishers string
-	StartDate  string
-	EndDate    string
+	Str      string
+	Genres   []string
+	MaxDate  string
+	MinDate  string
+	MaxPrice string
+	MinPrice string
 }
 
 type FavBook struct {
@@ -86,8 +82,13 @@ type FavBook struct {
 	Book int
 }
 
+type Data struct {
+	Email string
+	Code  string
+}
+
 type Decodable interface {
-	*RegUser | *AuthUser | *Order | *FullBook | *FavBook | *ServerOrder | *SearchOptions | *int | *[]int
+	*RegUser | *AuthUser | *Order | *FullBook | *FavBook | *ServerOrder | *SearchOptions | *int | *[]int | *Data
 }
 
 type Writable interface {

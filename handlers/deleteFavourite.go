@@ -15,7 +15,7 @@ func DeleteFavourite(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
-
+	fmt.Println("delfav in use")
 	err := queries.DeleteFavourite(d.User, d.Book)
 	if err != nil {
 		fmt.Println("querie")

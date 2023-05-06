@@ -22,9 +22,9 @@ func GetUser(User decoder.AuthUser) (decoder.InfoUser, error) {
 		return Info, errors.New("Connection error")
 	}
 
-	query := fmt.Sprintf(`SELECT u."id", u."name", u."email", u."pass", u."reg_Date"
+	query := fmt.Sprintf(`SELECT u."id", u."name", u."email", u."reg_Date"
 	FROM "users" AS u
-	WHERE u."email" = '%s' AND u."pass" = '%s';`, User.Email, User.Pass)
+	WHERE u."email" = '%s' AND u."pass" = '%s';`, User.Email, User.Pass) //Switch between id and email&pass
 	row, err := db.Query(query)
 	if err != nil {
 		fmt.Println(err.Error())
@@ -32,7 +32,7 @@ func GetUser(User decoder.AuthUser) (decoder.InfoUser, error) {
 	}
 	defer row.Close()
 	if row.Next() {
-		row.Scan(&Info.ID, &Info.Name, &Info.Email, &Info.Pass, &Info.Date)
+		row.Scan(&Info.ID, &Info.Name, &Info.Email, &Info.Date)
 		return Info, nil
 	} else {
 		return Info, errors.New("Empty")
