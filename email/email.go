@@ -14,7 +14,7 @@ func Email(reciever string, code string) error {
 	msg.SetHeader("To", reciever)
 	msg.SetHeader("Subject", "Test msg")
 	msg.SetBody("text/html", fmt.Sprintf("<b> Your verification link: localhost:3000/verify?email=%s&c=%s </b>", reciever, code))
-	n := gomail.NewDialer("smtp.gmail.com", 587, sender, "wubbkqpidfzzqzvm")
+	n := gomail.NewDialer("smtp.gmail.com", 587, sender, "")
 
 	// Send the email
 	if err := n.DialAndSend(msg); err != nil {
