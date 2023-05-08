@@ -8,7 +8,7 @@ import (
 )
 
 func Email(reciever string, code string) error {
-	sender := "2002egor@gmail.com"
+	sender := ""
 	msg := gomail.NewMessage()
 	msg.SetHeader("From", sender)
 	msg.SetHeader("To", reciever)
