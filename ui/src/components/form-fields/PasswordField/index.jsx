@@ -18,25 +18,21 @@ const PasswordField = ({ rules, ...rest }) => {
       setEyeOpen(true)
     }
   }
+  const passRegExp =
+  /^(?=.*\d)(?=.*[A-Za-z])[A-Za-z\d]{5,16}$/
 
-  const passwordLengthError = 'Длина пароля от 4 до 12 символов'
 
-  const rulesObject = {
-    minLength: {
-      value: 4,
-      message: passwordLengthError,
-    },
-    maxLength: {
-      value: 12,
-      message: passwordLengthError,
-    },
+  const patternObject = {
+    value: passRegExp,
+    message: 'Разрешены латиница и цифр',
   }
 
   if (rules) {
-    rules.minLength = rulesObject.minLength
-    rules.maxLength = rulesObject.maxLength
+    rules.pattern = patternObject
   } else {
-    rules = rulesObject
+    rules = {
+      pattern: patternObject,
+    }
   }
 
   return (

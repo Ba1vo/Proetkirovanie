@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 
+	"github.com/Ba1vo/Proektirovanie/crypt"
 	"github.com/Ba1vo/Proektirovanie/decoder"
 	"github.com/Ba1vo/Proektirovanie/queries"
 )
@@ -14,11 +15,12 @@ func CreateOrder(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
-	//if !(checks.CheckUserAuth(d)) {
-	//	w.WriteHeader(http.StatusInternalServerError)
-	//	return
-	//}
-	id, err := queries.AddOrder(d)
+	userid := crypt.CookieIsValid(r.Cookies(), "Token")
+	if userid == 0 {
+		w.WriteHeader(http.StatusUnauthorized)
+		return
+	}
+	id, err := queries.AddOrder(userid, d)
 	if err == ErrEmpty {
 		w.WriteHeader(http.StatusBadRequest)
 		return

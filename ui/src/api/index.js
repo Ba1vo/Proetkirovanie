@@ -23,6 +23,7 @@ authApi.interceptors.response.use(
   },
   async (error) => {
     const originalReq = error.config
+    console.log(originalReq)
     if (
       error.response.status === 401 &&
       error.config &&

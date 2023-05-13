@@ -11,7 +11,7 @@ const initialState = {
 export const getDiscountedProducts = createAsyncThunk(
   'discountedProducts/getProducts',
   async () => {
-    return await ProductService.getDiscountedProducts()
+    return await ProductService.getDiscountedBooks()
   }
 )
 

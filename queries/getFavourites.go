@@ -9,7 +9,7 @@ import (
 	"github.com/Ba1vo/Proektirovanie/decoder"
 )
 
-func GetFavourites(id int) ([]decoder.CardBook, error) {
+func GetFavourites(id int, pageSize int, page int) ([]decoder.CardBook, error) {
 	var Books []decoder.CardBook
 	db, err := sql.Open("postgres", PsqlInfo)
 	if err != nil {
@@ -38,8 +38,8 @@ func GetFavourites(id int) ([]decoder.CardBook, error) {
 	LEFT JOIN "authors" AS au ON au."id" = ba."author_id"
     
 	WHERE f."user_id" = %d
-	GROUP BY b."id";`, id)
-
+	GROUP BY b."id"
+	LIMIT %d OFFSET %d;`, id, pageSize, page*pageSize)
 	rows, err := db.Query(query)
 	if err != nil {
 		fmt.Println(err.Error())

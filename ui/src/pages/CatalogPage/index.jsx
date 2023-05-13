@@ -16,7 +16,7 @@ const CatalogPage = () => {
           <ProductFilter className='catalog-page__filter' />
           <div className='catalog-page__products'>
             <ProductSort className='catalog-page__sorter' />
-            <ProductList />
+            <ProductList className={'product-list-container'}/>
           </div>
         </div>
       </Container>

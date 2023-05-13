@@ -3,7 +3,7 @@
 .product-card {
   position: relative;
   width: 230px;
-  height: 353px;
+  height: 360px;
   cursor: pointer;
 
   &__a {
@@ -29,6 +29,12 @@
   &__description {
     margin-bottom: 11px;
     font-size: 16px;
+    font-weight: 400;
+  }
+
+  &__author {
+    margin-bottom: 11px;
+    font-size: 14px;
     font-weight: 300;
   }
 

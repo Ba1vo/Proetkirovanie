@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
+	"strconv"
 	"strings"
 
 	"github.com/Ba1vo/Proektirovanie/decoder"
@@ -68,10 +69,25 @@ func GetSearchBooks(options decoder.SearchOptions) ([]decoder.CardBook, error) {
 	}
 	sb.WriteString(`GROUP BY b."id" `)
 	if searchString != "" {
-		sb.WriteString(`, "vector" ORDER BY ts_rank("vector", to_tsquery('%s')) DESC;`)
+		sb.WriteString(`, "vector" `)
 	} else {
 		//sb.WriteString(`ORDER BY ts_rank("vector", to_tsquery('%s')) DESC;`) ???
 	}
+	sb.WriteString("ORDER BY ")
+	if options.Order != "" {
+		sb.WriteString(options.Order)
+		sb.WriteString(", ")
+	}
+	if searchString != "" {
+		sb.WriteString(fmt.Sprintf(`ts_rank("vector", to_tsquery('%s')) DESC`, searchString))
+		sb.WriteString(", ")
+	}
+	sb.WriteString("1")
+	sb.WriteString(" LIMIT ")
+	sb.WriteString(strconv.Itoa(options.PageSize))
+	sb.WriteString(" OFFSET ")
+	sb.WriteString(strconv.Itoa(options.PageSize * (options.Page - 1)))
+	sb.WriteString(";")
 	fmt.Println(sb.String())
 	rows, err := db.Query(sb.String())
 	if err != nil {

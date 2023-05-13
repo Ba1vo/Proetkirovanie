@@ -5,25 +5,27 @@ import Product from '../../components/Product'
 import Search from '../../components/Search'
 
 import './style.scss'
+import { useDispatch } from 'react-redux'
+import { useState } from 'react'
+import ProductService from '../../../services/productService'
 
 const ProductPage = () => {
   const { id } = useParams()
+  const [state, setState] = useState()
+  console.log(22)
+  useEffect(() => {
+      ProductService.getBook(id).then(
+        (res) =>{
+          setState({book: res, inProgress: false})
+        })
+  }, [])
+
   return (
     <div className='product-page'>
       <Container className='product-page__container'>
         <Search />
         <Product
           className='product-page__info'
-          id={id}
-          image='../img/solntce_abhazii_red_04032022 1.svg'
-          name='Солнце Абхазии'
-          color='Красное'
-          sugarType='Полусладкое'
-          country='Россия'
-          volume='0.75'
-          actualPrice='1020'
-          price='1120'
-          discount='15'
           availability={true}
         />
       </Container>

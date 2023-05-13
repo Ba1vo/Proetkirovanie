@@ -28,23 +28,25 @@ const Menu = ({ className, user, setUser}) => {
       <nav className={menuOpen ? 'menu__body menu__body_open' : 'menu__body'}>
         <ul className='menu__list' onClick={onLinkClick}>
           <li className='menu__item'>
-            <Link className='menu__link' to='##'>
+            <Link className='menu__link' to='/catalog'>
               Каталог
             </Link>
           </li>
+          { user ?
           <li className='menu__item'>
-            <Link className='menu__link' to='##'>
+            <Link className='menu__link' to='/favourites'>
               Избранное
             </Link>
-          </li>
+          </li> : null
+          }
           <li className='menu__item'>
-            <Link className='menu__link' to='##'>
+            <Link className='menu__link' to='/cart'>
               Корзина
             </Link>
           </li>
           <li className='menu__item'>
             <Link className='menu__link' to='/login'>
-              <AccountIcon className='menu__account-image' />
+              <AccountIcon className={user ?'menu__account-image__signed' :'menu__account-image__nonsigned'} />
               <span className='menu__account-label'> Аккаунт</span>
             </Link>
           </li>

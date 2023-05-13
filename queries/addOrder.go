@@ -10,7 +10,7 @@ import (
 	"github.com/Ba1vo/Proektirovanie/decoder"
 )
 
-func AddOrder(order decoder.ServerOrder) (int, error) {
+func AddOrder(userId int, order decoder.ServerOrder) (int, error) {
 	var id int
 	db, err := sql.Open("postgres", PsqlInfo)
 	if err != nil {
@@ -23,10 +23,11 @@ func AddOrder(order decoder.ServerOrder) (int, error) {
 		fmt.Println(err.Error())
 		return id, errors.New("connection error")
 	}
+	fmt.Println(userId)
 	query := fmt.Sprintf(`
-	with o_id as (INSERT INTO public."orders" ("user_id", "adress") VALUES ('%d', '%s') RETURNING "id")
+	with o_id as (INSERT INTO public."orders" ("user_id", "adress") VALUES (%d, '%s') RETURNING "id")
 	INSERT INTO public."orders_books" ("order_id", "book_id", "amount")
-	SELECT "id", unnest('{%s}'::int[]), unnest('{%s}'::int[]) FROM o_id;`, order.UserID, order.Adress, intToString(order.Book_IDs), intToString(order.Amounts)) //CHECK
+	SELECT "id", unnest('{%s}'::int[]), unnest('{%s}'::int[]) FROM o_id;`, userId, order.Adress, intToString(order.Book_IDs), intToString(order.Amounts)) //CHECK
 	fmt.Println(query)
 	row, err := db.Query(query)
 	if err != nil {

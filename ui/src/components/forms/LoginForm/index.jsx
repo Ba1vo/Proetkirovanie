@@ -9,11 +9,14 @@ import AuthService from '../../../services/authService'
 import { usePromiseTracker, trackPromise } from "react-promise-tracker"
 import BaseField from '../../form-fields/BaseField'
 import eyeIcon from './eye-icon.svg'
+import { login } from '../../../slices/authSlice'
 
 import React, { useState } from 'react'
 import LoadingIcon from '../../icons/LoadingIcon'
+import { useDispatch, useSelector } from 'react-redux'
 
 const LoginForm = ({ user, setUser, setServerError }) => {
+  /*
   const { promiseInProgress } = usePromiseTracker();
   const [type, setType] = useState("password");
   const [eyeOpen, setEyeOpen ] = useState(true);
@@ -126,7 +129,7 @@ const LoginForm = ({ user, setUser, setServerError }) => {
       </div>
       {passErrorElement}
     </div>
-    <button class="button loading-button" type="submit" disabled={promiseInProgress}>  {promiseInProgress ? <LoadingIcon className='loading-button__spinner' /> : "Войти"}</button>
+    <button className="button loading-button" type="submit" disabled={promiseInProgress}>  {promiseInProgress ? <LoadingIcon className='loading-button__spinner' /> : "Войти"}</button>
     </form>
     {requestError ? <div class="auth-page__error"> {requestError.message} </div> : null}
     </React.Fragment>
@@ -137,7 +140,35 @@ const LoginForm = ({ user, setUser, setServerError }) => {
       <LoadingButton type='submit' loading={loading}>
         Войти
       </LoadingButton>
-    </BaseForm>*/
+    </BaseForm>
+    
+   
+  )*/
+  const dispatch = useDispatch()
+  const loading = useSelector((state) => state.auth.loading)
+  const navigate = useNavigate()
+    
+  const onSubmit = async (user, setError) => {
+    try {
+      await dispatch(login(user)).unwrap()
+      navigate('/')
+    } catch (error) {
+      if (error.field) {
+        setError(error.field, { type: 'custom', message: error.detail })
+      } else {
+        setServerError('Непредвиденная ошибка')
+      }
+    }
+  }
+
+  return (
+    <BaseForm onSubmit={onSubmit}>
+      <EmailField name='Email' placeholder='Электронная почта' required />
+      <PasswordField name='Pass' placeholder='Пароль' required />
+      <LoadingButton type='submit' loading={loading}>
+        Войти
+      </LoadingButton>
+    </BaseForm>
   )
 }
 

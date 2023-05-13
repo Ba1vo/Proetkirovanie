@@ -3,23 +3,20 @@ import { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 
-//import { getPopularProducts } from '../../../slices/popularProductsSlice'
+import { getPopularProducts } from '../../../slices/popularProductsSlice'
 import ProductSlider from '../ProductSlider/'
 import ProductService from '../../../services/productService'
 import { useState } from 'react'
 
 const PopularProductsSlider = ({ className }) => {
-  const [state, setState] = useState({products: null, inProgress: true}) 
-  console.log(state)
-  useEffect(() => {
-    ProductService.getPopularBooks().then(
-      (res) =>{
-        setState({products: res, inProgress: false})
-      }
-    )
-  }, [])
+  const dispatch = useDispatch()
+  const state = useSelector((state) => state.popularProducts)
 
-  return <ProductSlider className={className} loading={state.inProgress} products={state.products} topic='Популярное' />
+  useEffect(() => {
+    dispatch(getPopularProducts())
+  }, [dispatch])
+
+  return <ProductSlider className={className} {...state} topic='Популярное' />
 }
 
 PopularProductsSlider.propTypes = {

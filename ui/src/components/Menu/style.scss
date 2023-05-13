@@ -47,7 +47,9 @@
     &:hover {
       color: $primary;
     }
-
+    &__disabled {
+      pointer-events: none;        
+    }
     @media (max-width: $bp768) {
       font-size: 27px;
       color: $text-light;
@@ -55,6 +57,7 @@
       &:hover {
         color: $text-light;
       }
+    
     }
   }
 
@@ -80,15 +83,27 @@
   }
 
   &__account-image {
-    fill: $text;
-    transition: fill 0.3s ease;
-
+    &__signed {
+      fill: rgb(105, 105, 218);
+      transition: fill 0.3s ease;
     &:hover {
       fill: $primary;
     }
 
     @media (max-width: $bp768) {
       display: none;
+    }
+    }
+    &__nonsigned {
+      fill: $text;
+      transition: fill 0.3s ease;
+    &:hover {
+      fill: $primary;
+    }
+
+    @media (max-width: $bp768) {
+      display: none;
+    }
     }
   }
 

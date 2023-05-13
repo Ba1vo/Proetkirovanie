@@ -1,0 +1,14 @@
+@import '../../scss/variables';
+
+.order-list-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+
+  &_not-loaded {
+    height: 1264px;
+    background-color: $light-gray;
+    border-radius: 10px;
+  }
+}

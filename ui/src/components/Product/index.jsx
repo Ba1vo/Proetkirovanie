@@ -13,13 +13,16 @@ const Product = ({
   id,
   image,
   name,
-  color,
-  sugarType,
-  country,
-  volume,
-  actualPrice,
   price,
   discount,
+  isbn,
+  description,
+  dimension,
+  authors,
+  publishers,
+  genres,
+  amount,
+  date,
   className,
   availability,
 }) => {
@@ -29,17 +32,18 @@ const Product = ({
   const changeAdd = () => {
     setAdd((isAdded) => !isAdded)
   }
+  const actualPrice = discount ? Math.round(price*(100-discount)/100).toFixed(2) : price
 
   const changeLike = () => {
     setLike((isLiked) => !isLiked)
   }
-
+  console.log(image)
   return (
     <div className={classNames('product', className)}>
       <div className='product__article'>Артикул {id}</div>
       <div className='product__content'>
         <div className='product__picture'>
-          <img className='product__img' src={image} alt='Изображение товара' />
+          <img className='product__img' src={"/"+image} alt='Изображение товара' />
 
           {discount ? (
             <div className='product__discount'>-{discount}%</div>
@@ -55,15 +59,18 @@ const Product = ({
         </div>
         <div className='product__info'>
           <div className='product__name'>{name}</div>
+          {authors}
           <div className='product__discription'>
-            <span className='product__feature'>Объем:</span>
-            {volume} л.
-            <span className='product__feature'>Страна:</span>
-            {country}
-            <span className='product__feature'>Цвет:</span>
-            {color}
-            <span className='product__feature'>Сладость:</span>
-            {sugarType}
+            <span className='product__feature'>ISBN:</span>
+            {isbn} <br/>
+            <span className='product__feature'>Размеры:</span>
+            {dimension}<br/>
+            <span className='product__feature'>Издательства:</span>
+            {publishers}<br/>
+            <span className='product__feature'>Жанры:</span>
+            {genres}<br/>
+            <span className='product__feature'>Дата публикации:</span>
+            {date ? date.slice(0,10) : "-"}<br/>
           </div>
         </div>
 

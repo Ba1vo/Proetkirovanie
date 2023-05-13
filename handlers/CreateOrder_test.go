@@ -16,12 +16,12 @@ func TestCreateOrd(t *testing.T) {
 		UserID:   23,
 		Adress:   "Пушкина",
 		Status:   "Ожидает",
-		Book_IDs: []int{32},
-		Amounts:  []int{1},
+		Book_IDs: []int{38, 52},
+		Amounts:  []int{4, 10},
 	}
 	//fmt.Println(checks.CheckBook(d))
 	res, _ := json.Marshal(d)
-	r, _ := http.NewRequest("POST", "http://localhost:2406/api/book", bytes.NewBuffer(res))
+	r, _ := http.NewRequest("POST", "http://localhost:2406/api/createOrder", bytes.NewBuffer(res))
 
 	rr := httptest.NewRecorder()
 	handler := http.HandlerFunc(CreateOrder)

@@ -12,7 +12,6 @@ export const register = createAsyncThunk(
   async (user, { rejectWithValue }) => {
     try {
       const data = await AuthService.register(user)
-      localStorage.setItem('token', data.access)
       return data.user
     } catch (error) {
       return rejectWithValue(error.response.data)
@@ -25,7 +24,6 @@ export const login = createAsyncThunk(
   async (user, { rejectWithValue }) => {
     try {
       const data = await AuthService.login(user)
-      localStorage.setItem('token', data.access)
       return data.user
     } catch (error) {
       return rejectWithValue(error.response.data)
@@ -35,13 +33,11 @@ export const login = createAsyncThunk(
 
 export const checkAuth = createAsyncThunk('auth/checkAuth', async () => {
   const data = await AuthService.checkAuth()
-  localStorage.setItem('token', data.access)
   return data.user
 })
 
 export const logout = createAsyncThunk('auth/logout', async () => {
   await AuthService.logout()
-  localStorage.removeItem('token')
 })
 
 const authSlice = createSlice({

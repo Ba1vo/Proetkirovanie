@@ -14,9 +14,9 @@ const CheckMark = ({ className }) => {
       <path
         d='M1 4.2L5.125 9L12 1'
         stroke='#BA0C0C'
-        stroke-width='2'
-        stroke-linecap='round'
-        stroke-linejoin='round'
+        strokeWidth='2'
+        strokeLinecap='round'
+        strokeLinejoin='round'
       />
     </svg>
   )

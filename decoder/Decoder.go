@@ -61,20 +61,21 @@ type Order struct {
 }
 
 type ServerOrder struct {
-	UserID   int
 	Adress   string
-	Status   string
 	Book_IDs []int
 	Amounts  []int
 }
 
 type SearchOptions struct {
+	Order    string
 	Str      string
 	Genres   []string
 	MaxDate  string
 	MinDate  string
 	MaxPrice string
 	MinPrice string
+	PageSize int
+	Page     int
 }
 
 type FavBook struct {

@@ -4,6 +4,7 @@ import ProductCard from '../../ProductCard'
 import './style.scss'
 
 const ProductList = ({ products, pageCount, forcePage, onPageClick, count }) => {
+  console.log(count)
   if (count === 0) {
     return (
       <div className='product-list product-list_not-found'>
@@ -11,7 +12,6 @@ const ProductList = ({ products, pageCount, forcePage, onPageClick, count }) => 
       </div>
     )
   }
-  console.log(products)
   return (
     <div className='product-list'>
       <div className='product-list__products'>

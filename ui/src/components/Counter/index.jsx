@@ -5,8 +5,7 @@ import PlusIcon from '../icons/PlusIcon'
 
 import './style.scss'
 
-const Counter = () => {
-  const [count, setCount] = useState(1)
+const Counter = ({count, setCount}) => {
 
   const handleDec = () => {
     if (count > 1) setCount((count) => count - 1)

@@ -11,7 +11,7 @@ const initialState = {
 export const getPopularProducts = createAsyncThunk(
   'popularProducts/getProducts',
   async () => {
-    return await ProductService.getPopularProducts()
+    return await ProductService.getPopularBooks()
   }
 )
 

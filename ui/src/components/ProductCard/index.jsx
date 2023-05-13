@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import classNames from 'classnames'
 import PropTypes from 'prop-types'
@@ -8,6 +8,7 @@ import Counter from '../Counter'
 import LikeIcon from '../icons/LikeIcon'
 
 import './style.scss'
+import { set } from 'react-hook-form'
 
 const ProductCard = ({
   ID,
@@ -18,12 +19,46 @@ const ProductCard = ({
   Discount,
   Amount
 }) => {
-  const [isAdded, setAdd] = useState(false)
+  const [isAdded, setAdd] = useState(JSON.parse(localStorage.getItem('cart')).findIndex((obj => obj.id == ID)) !== -1)
+  const [count, setCount] = useState(null)
   const [isLiked, setLike] = useState(false)
 
+  useEffect(() => {
+    let array = JSON.parse(localStorage.getItem('cart'))
+    let bookIndex = array.findIndex((obj => obj.id == ID))
+    if (bookIndex === -1) {
+      setAdd(false)
+      return
+    }
+    setAdd(true)
+    setCount(array[bookIndex].amount)
+  }, [])
+
   const changeAdd = () => {
+    let array = JSON.parse(localStorage.getItem('cart'))
+    if (array === null){
+       array = []
+    }
+    console.log(array)
+    if (isAdded){
+      array = array.filter(book => book.id != ID)
+      localStorage.setItem('cart', JSON.stringify(array));
+    } else{
+      array.push({id: ID, amount: count})
+      setCount(1)
+      localStorage.setItem('cart', JSON.stringify(array));
+    }
     setAdd((isAdded) => !isAdded)
   }
+
+  useEffect(() => {
+    let array = JSON.parse(localStorage.getItem('cart'))
+    let index = array.findIndex((obj => obj.id == ID))
+    if (index !== -1 && count !== null){
+      array[index].amount = count 
+      localStorage.setItem('cart', JSON.stringify(array));
+    } 
+  }, [count])
 
   const changeLike = () => {
     setLike((isLiked) => !isLiked)
@@ -32,7 +67,7 @@ const ProductCard = ({
   let calcPrice = Discount ? Math.round(Price*(100-Discount)/100).toFixed(2) : Price
   return (
     <div className='product-card'>
-      <a href='##'>
+      <a href={`/book/${ID}`}>
         <div className='product-card__a' />
       </a>
 
@@ -57,9 +92,11 @@ const ProductCard = ({
       </div>
 
       <div className='product-card__description'>
-        {Name} {Authors[0]}.
+        {Name}.
       </div>
-
+      <div className='product-card__author'>
+        {Authors}.
+      </div>
       <div className='product-card__price-and-counter'>
         <div className='product-card__price'>
           {calcPrice} ₽/шт.
@@ -68,7 +105,7 @@ const ProductCard = ({
           ) : null}
         </div>
         <div className='product-card__counter-div'>
-          {isAdded ? <Counter /> : null}
+          {isAdded ? <Counter count={count} setCount={setCount} /> : null}
         </div>
       </div>
 

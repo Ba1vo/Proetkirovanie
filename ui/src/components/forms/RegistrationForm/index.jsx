@@ -2,8 +2,8 @@ import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
-//import { register } from '../../../slices/authSlice'
-import { EmailField, PasswordField } from '../../form-fields'
+import { register } from '../../../slices/authSlice'
+import { EmailField, PasswordField, NameField } from '../../form-fields'
 import LoadingButton from '../../LoadingButton'
 import BaseForm from '../BaseForm'
 import { trackPromise, usePromiseTracker } from 'react-promise-tracker'
@@ -13,7 +13,7 @@ import eyeIcon from './eye-icon.svg'
 import LoadingIcon from '../../icons/LoadingIcon'
 
 const RegistrationForm = ({setUser, setServerError }) => {
-  const { promiseInProgress } = usePromiseTracker();
+  /*const { promiseInProgress } = usePromiseTracker();
   const [type, setType] = useState("password");
   const [eyeOpen, setEyeOpen ] = useState(true);
   const [emailError, setEmailError ] = useState(null);
@@ -159,6 +159,33 @@ const RegistrationForm = ({setUser, setServerError }) => {
     </form>
     {requestError ? <div class="auth-page__error"> {requestError.message} </div> : null}
     </React.Fragment>
+  )*/
+  const dispatch = useDispatch()
+  const loading = useSelector((state) => state.auth.loading)
+  const navigate = useNavigate()
+
+  const onSubmit = async (user, setError) => {
+    try {
+      await dispatch(register(user)).unwrap()
+      navigate('/')
+    } catch (error) {
+      if (error.detail) {
+        setError('email', { type: 'custom', message: error.detail })
+      } else {
+        setServerError('Непредвиденная ошибка')
+      }
+    }
+  }
+
+  return (
+    <BaseForm onSubmit={onSubmit}>
+      <NameField> </NameField>
+      <EmailField name='email' placeholder='Электронная почта' required />
+      <PasswordField name='password' placeholder='Пароль' required />
+      <LoadingButton type='submit' loading={loading}>
+        Зарегистрироваться
+      </LoadingButton>
+    </BaseForm>
   )
 }
 

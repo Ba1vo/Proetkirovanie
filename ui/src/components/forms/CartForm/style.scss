@@ -1,0 +1,18 @@
+@import '../../../scss/variables';
+
+.order-form-container {
+  width: 330px;
+  margin-right: 60px;
+
+  &__sum {
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-weight: 400;
+  }
+
+  
+  &__disabled {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+}

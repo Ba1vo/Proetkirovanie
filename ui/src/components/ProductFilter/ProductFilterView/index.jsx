@@ -4,6 +4,8 @@ import classNames from 'classnames'
 import PropTypes from 'prop-types'
 import { AiOutlineClose } from 'react-icons/ai'
 import Slider from '@mui/material/Slider';
+import Box from '@mui/material/Box';
+
 import Accordion from '../../Accordion'
 import Button from '../../Button'
 import CheckboxList from '../../CheckboxList'
@@ -65,6 +67,7 @@ const ProductFilter = ({
             {dates[1]}
           </span>
         </div>
+        <Box px={2.5} py={1}>
         <Slider 
           disableSwap = {true}
           getAriaLabel={() => 'Date'}
@@ -77,6 +80,7 @@ const ProductFilter = ({
           getAriaValueText={valuetext}
         >
         </Slider>
+        </Box>
         </Accordion>
         <Accordion title='Жанры' defaultOpen>
           <CheckboxList name='genres' values={Genres} register={register} />

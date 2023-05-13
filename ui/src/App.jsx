@@ -13,6 +13,9 @@ import ProductService from './services/productService'
 import StaffService from './services/staffService'
 import CatalogPage from './pages/CatalogPage'
 import ProductPage from './pages/ProductPage'
+import OrderPage from './pages/Orders'
+import FavouritesPage from './pages/Favourites'
+import CartPage from './pages/CartPage'
 
 const App = () => {
   const [user, setUser] = useState(null)
@@ -21,6 +24,9 @@ const App = () => {
     Pass: "159753Kupa"
   }
   useEffect(() => {
+    if (JSON.parse(localStorage.getItem('cart')) === null ){
+      localStorage.setItem('cart', JSON.stringify([]));
+    }
     AuthService.loginCookie().then(
       (res) =>{
         setUser(res)
@@ -69,18 +75,6 @@ const App = () => {
 		Amount:     5,
 		Date:       "2021-10-5",
   }
-  //console.log(AuthService.login(User))
-  //console.log(AuthService.register(RegUser))
-  //ProductService.getPopularBooks()
-  //console.log(ProductService.getPopularBooks())
-  //console.log(ProductService.getDiscountedBooks())
-  //console.log(ProductService.addFav(fav))
-  //console.log(ProductService.getFav(28))
-  //console.log(ProductService.getSearch(SearchOpt))
-  //console.log(ProductService.getBook(32))
-  //console.log(ProductService.addOrder(Order))
-  //console.log(StaffService.redactBook(Book))
-  //return(<div className='app'> </div>)
    return (
     <div className='app'>
       <Header user = {user} setUser = {setUser}  />
@@ -90,7 +84,10 @@ const App = () => {
           <Route path='' element={<MainPage user = {user} setUser = {setUser}/>} />
           <Route path='/registration' element={<RegistrationPage setUser = {setUser}/>} />
           <Route path='/catalog' element={<CatalogPage />} />
-          <Route path='/product/:id' element={<ProductPage />} />
+          <Route path='/book/:id' element={<ProductPage />} />
+          <Route path='/favourites' element={<FavouritesPage />} />
+          <Route path='/orders' element={<OrderPage />} />
+          <Route path='/cart' element={<CartPage />} />
         </Routes>
       </main>
       <Footer />
