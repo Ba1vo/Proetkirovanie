@@ -9,6 +9,8 @@ import LikeIcon from '../icons/LikeIcon'
 
 import './style.scss'
 import { set } from 'react-hook-form'
+import ProductService from '../../services/productService'
+import { useDispatch, useSelector } from 'react-redux'
 
 const ProductCard = ({
   ID,
@@ -17,11 +19,13 @@ const ProductCard = ({
   Authors,
   Price,
   Discount,
-  Amount
+  Amount,
+  Favourite
 }) => {
   const [isAdded, setAdd] = useState(JSON.parse(localStorage.getItem('cart')).findIndex((obj => obj.id == ID)) !== -1)
   const [count, setCount] = useState(null)
-  const [isLiked, setLike] = useState(false)
+  const [isLiked, setLike] = useState(Favourite)
+  const user = useSelector((state) => state.auth.user)
 
   useEffect(() => {
     let array = JSON.parse(localStorage.getItem('cart'))
@@ -61,7 +65,19 @@ const ProductCard = ({
   }, [count])
 
   const changeLike = () => {
-    setLike((isLiked) => !isLiked)
+    if (isLiked) {
+      ProductService.deleteFavourite(ID).then(() =>{
+        setLike(false)
+       }).catch({
+  
+       })
+    } else{
+      ProductService.addFavourite(ID).then(() =>{
+        setLike(true)
+       }).catch({
+  
+       })
+    }
   }
 
   let calcPrice = Discount ? Math.round(Price*(100-Discount)/100).toFixed(2) : Price
@@ -82,14 +98,15 @@ const ProductCard = ({
       {Discount ? (
         <div className='product-card__discount'>-{Discount}%</div>
       ) : null}
-
-      <div onClick={changeLike}>
+      
+      {Object.keys(user).length !== 0 ? <div onClick={changeLike}>
         <LikeIcon
           className={classNames('product-card__like', {
             'product-card__like_active': isLiked,
           })}
         />
-      </div>
+      </div> : null
+      }
 
       <div className='product-card__description'>
         {Name}.

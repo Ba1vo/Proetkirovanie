@@ -39,7 +39,7 @@ func GetFavourites(id int, pageSize int, page int) ([]decoder.CardBook, error) {
     
 	WHERE f."user_id" = %d
 	GROUP BY b."id"
-	LIMIT %d OFFSET %d;`, id, pageSize, page*pageSize)
+	LIMIT %d OFFSET %d;`, id, pageSize, (page-1)*pageSize)
 	rows, err := db.Query(query)
 	if err != nil {
 		fmt.Println(err.Error())
@@ -54,6 +54,7 @@ func GetFavourites(id int, pageSize int, page int) ([]decoder.CardBook, error) {
 		rows.Scan(&book.ID, &book.Name, &array, &book.Price, &book.Discount, &book.Amount, &book.Photo)
 		//book.Amount = amount
 		book.Authors = strings.Split(array, ", ")
+		book.Favourite = true
 		Books = append(Books, book)
 	} // if 0 books found,
 

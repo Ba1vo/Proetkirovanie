@@ -61,6 +61,8 @@ const CartList = ({state, setState}) => {
           books={state.books}
           ids = {state.ids}
           Delete={Delete}
+          state={state}
+          setState={setState}
         />
       ) : null}
     </div>

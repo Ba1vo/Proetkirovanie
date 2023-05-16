@@ -4,12 +4,12 @@ import Menu from '../Menu'
 
 import './style.scss'
 
-const Header = ({user, setUser}) => {
+const Header = () => {
   return (
     <header className='header'>
       <Container className='header__container'>
         <Logo />
-        <Menu className='header__menu' user={user} setUser={setUser} />
+        <Menu className='header__menu' />
       </Container>
     </header>
   )

@@ -18,14 +18,13 @@ const Footer = () => {
         <div className='footer__address'>
           <b className='footer__bold'>Адрес магазина:</b>
           <br />
-          г. Томск ул. Пушкина 146
+          г. Томск ул. Пушкина 2
         </div>
         <div className='footer__contact'>
           <b className='footer__bold'>Контакты:</b>
           <br />
           +7 800 555 35 35
           <br />
-          wine_fi@mail.ru
         </div>
       </Container>
     </div>

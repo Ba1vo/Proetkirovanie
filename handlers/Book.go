@@ -5,7 +5,8 @@ import (
 	"errors"
 	"net/http"
 	"strconv"
-
+	
+	"github.com/Ba1vo/Proektirovanie/crypt"
 	"github.com/Ba1vo/Proektirovanie/queries"
 	"github.com/gorilla/mux"
 )
@@ -22,7 +23,8 @@ func Book(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
-	book, err := queries.GetBook(id)
+	user := crypt.CookieIsValid(r.Cookies(), "Token")
+	book, err := queries.GetBook(id, user)
 	if err == ErrEmpty {
 		w.WriteHeader(http.StatusBadRequest)
 		return

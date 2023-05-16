@@ -10,7 +10,7 @@ import (
 	"github.com/Ba1vo/Proektirovanie/decoder"
 )
 
-func GetSearchBooks(options decoder.SearchOptions) ([]decoder.CardBook, error) {
+func GetSearchBooks(id int, options decoder.SearchOptions) ([]decoder.CardBook, error) {
 	var sb strings.Builder
 	var clauses []string
 	var Books []decoder.CardBook
@@ -35,10 +35,13 @@ func GetSearchBooks(options decoder.SearchOptions) ([]decoder.CardBook, error) {
 		b."price", 
 		b."discount", 
 		b."amount",
-		b."photo"
+		b."photo",
+		(f."user_id" IS NOT NULL)
 	FROM "books" AS b
 	LEFT JOIN "search_vectors" AS srch ON srch."book_id" = b."id"
-	LEFT JOIN "books_authors" AS ba ON ba."book_id" = b."id"
+	LEFT JOIN "favourites" AS f ON f."book_id" = b."id" AND f."user_id" = `)
+	sb.WriteString(strconv.Itoa(id))
+	sb.WriteString(`LEFT JOIN "books_authors" AS ba ON ba."book_id" = b."id"
 	LEFT JOIN "authors" AS au ON au."id" = ba."author_id"`)
 	fmt.Printf("Search Object: %v\n", options)
 	if options.Genres[0] != "" {
@@ -67,7 +70,7 @@ func GetSearchBooks(options decoder.SearchOptions) ([]decoder.CardBook, error) {
 		sb.WriteString("WHERE ")
 		sb.WriteString(strings.Join(clauses, " AND "))
 	}
-	sb.WriteString(`GROUP BY b."id" `)
+	sb.WriteString(`GROUP BY b."id", f."user_id" `)
 	if searchString != "" {
 		sb.WriteString(`, "vector" `)
 	} else {
@@ -100,7 +103,7 @@ func GetSearchBooks(options decoder.SearchOptions) ([]decoder.CardBook, error) {
 		var book decoder.CardBook
 		//var amount int
 		var array string
-		rows.Scan(&book.ID, &book.Name, &array, &book.Price, &book.Discount, &book.Amount, &book.Photo)
+		rows.Scan(&book.ID, &book.Name, &array, &book.Price, &book.Discount, &book.Amount, &book.Photo, &book.Favourite)
 		//book.Amount = amount
 		book.Authors = strings.Split(array, ", ")
 		Books = append(Books, book)

@@ -8,11 +8,30 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"os"
 	"strings"
 	"time"
 )
 
-var secretKey, _ = hex.DecodeString("9d4eace8a07632ede8235878dd7eaa399b0e1bc4163307c8067f9c039b2ef78c")
+var secretKey = readKey()
+
+func readKey() []byte {
+	data, err := os.ReadFile("C:/Users/1/Proetkirovanie/crypt/key.txt")
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(string(data))
+	key, err := hex.DecodeString(string(data))
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(key)
+	return key
+}
+
+func SecretKey() []byte {
+	return secretKey
+}
 
 func Hash(str string) string {
 	encoder := hmac.New(sha256.New, secretKey)
@@ -30,18 +49,16 @@ type Payload struct {
 	Jti int
 }
 
-func SetCookies(w http.ResponseWriter, id int) { //zamenit
-	//fmt.Println(secretKey)
+func SetCookies(w http.ResponseWriter, id int) {
 	header, _ := json.Marshal(Header{"HS256", "JWT"})
 	payload, _ := json.Marshal(Payload{"UIRS", (time.Now().Unix() + 1200), id})
 	unsigned := base64.StdEncoding.EncodeToString(header) + "." + base64.StdEncoding.EncodeToString(payload)
 	sign := base64.StdEncoding.EncodeToString([]byte(Hash(unsigned)))
 	token := unsigned + "." + sign
-	//fmt.Println(token)
 	tokenCookie := http.Cookie{
 		Name:     "Token",
 		Value:    token,
-		MaxAge:   5,
+		MaxAge:   3000,
 		HttpOnly: true,
 		SameSite: http.SameSiteNoneMode,
 		Secure:   true,
@@ -61,14 +78,6 @@ func SetCookies(w http.ResponseWriter, id int) { //zamenit
 		Secure:   true,
 	}
 	http.SetCookie(w, &refreshCookie)
-	/*refreshCookie = http.Cookie{
-		Name:     "Check",
-		Value:    "",
-		MaxAge:   2592000,
-		SameSite: http.SameSiteNoneMode,
-		Secure:   true,
-	}*/
-	http.SetCookie(w, &refreshCookie)
 }
 
 func CookieIsValid(cookies []*http.Cookie, name string) int {
@@ -79,6 +88,10 @@ func CookieIsValid(cookies []*http.Cookie, name string) int {
 			token := cookie.Value
 			//fmt.Printf("Token value: %s\n", token)
 			parts := strings.Split(token, ".")
+			fmt.Println(len(parts))
+			if len(parts) != 3 {
+				return 0
+			}
 			//fmt.Printf("Parts %v", parts)
 			sign := base64.StdEncoding.EncodeToString([]byte(Hash(parts[0] + "." + parts[1])))
 			//fmt.Println("What server produced", sign)

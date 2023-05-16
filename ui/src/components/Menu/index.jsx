@@ -8,10 +8,16 @@ import { Link } from 'react-router-dom'
 import AccountIcon from '../icons/AccountIcon'
 
 import './style.scss'
+import AuthService from '../../services/authService'
+import { useDispatch, useSelector } from 'react-redux'
+import { logout } from '../../slices/authSlice'
 
-const Menu = ({ className, user, setUser}) => {
+const Menu = ({ className }) => {
   const [menuOpen, setMenuOpen] = useState(false)
-
+  const [accountOpen, setAccountOpen] = useState(false)
+  const dispatch = useDispatch()  
+  const user = useSelector((state) => state.auth.user)
+  console.log(user)
   const onLinkClick = (event) => {
     const tagName = event.target.tagName
     if (tagName === 'A' || tagName === 'SPAN') {
@@ -23,6 +29,30 @@ const Menu = ({ className, user, setUser}) => {
     setMenuOpen((menuOpen) => !menuOpen)
   }
 
+  const onAccountClick = () => {
+    setAccountOpen((accountOpen) => !accountOpen)
+  }
+
+  const Exit = async () => {
+    dispatch(logout()).unwrap()
+  }
+  console.log(Object.keys(user).length === 0)
+  const AccountContent = 
+  Object.keys(user).length === 0 ? 
+      <Link className='menu__link' to='/login'>
+      <AccountIcon className={'menu__account-image__nonsigned'} />
+      <span className='menu__account-label'> Аккаунт</span>
+      </Link> 
+  : accountOpen ? 
+      <Link className='menu__link' onClick={Exit} onMouseLeave={onAccountClick}>
+        Выйти?
+      </Link> :             
+      <Link className='menu__link' onClick={onAccountClick}>
+        <AccountIcon className={'menu__account-image__signed' } />
+        {user.Name}
+        <span className='menu__account-label'> Аккаунт</span>
+      </Link>
+
   return (
     <div className={classNames('menu', className)}>
       <nav className={menuOpen ? 'menu__body menu__body_open' : 'menu__body'}>
@@ -32,10 +62,17 @@ const Menu = ({ className, user, setUser}) => {
               Каталог
             </Link>
           </li>
-          { user ?
+          { Object.keys(user).length > 0 ?
           <li className='menu__item'>
             <Link className='menu__link' to='/favourites'>
               Избранное
+            </Link>
+          </li> : null
+          }
+          { Object.keys(user).length > 0 ?
+          <li className='menu__item'>
+            <Link className='menu__link' to='/orders'>
+              Заказы
             </Link>
           </li> : null
           }
@@ -44,11 +81,8 @@ const Menu = ({ className, user, setUser}) => {
               Корзина
             </Link>
           </li>
-          <li className='menu__item'>
-            <Link className='menu__link' to='/login'>
-              <AccountIcon className={user ?'menu__account-image__signed' :'menu__account-image__nonsigned'} />
-              <span className='menu__account-label'> Аккаунт</span>
-            </Link>
+          <li className='menu__item__acc'>
+            {AccountContent}
           </li>
         </ul>
       </nav>

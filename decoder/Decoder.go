@@ -40,16 +40,18 @@ type FullBook struct {
 	Genres     []string
 	Amount     int
 	Date       string
+	Favourite  bool
 }
 
 type CardBook struct {
-	ID       int
-	Name     string
-	Authors  []string
-	Price    string
-	Discount int
-	Photo    string
-	Amount   int
+	ID        int
+	Name      string
+	Authors   []string
+	Price     string
+	Discount  int
+	Photo     string
+	Amount    int
+	Favourite bool
 }
 
 type Order struct {
@@ -78,18 +80,13 @@ type SearchOptions struct {
 	Page     int
 }
 
-type FavBook struct {
-	User int
-	Book int
-}
-
 type Data struct {
 	Email string
 	Code  string
 }
 
 type Decodable interface {
-	*RegUser | *AuthUser | *Order | *FullBook | *FavBook | *ServerOrder | *SearchOptions | *int | *[]int | *Data
+	*RegUser | *AuthUser | *Order | *FullBook | *ServerOrder | *SearchOptions | *int | *[]int | *Data
 }
 
 type Writable interface {

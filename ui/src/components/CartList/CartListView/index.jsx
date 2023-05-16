@@ -2,7 +2,7 @@ import CartItem from '../../CartItem'
 
 import './style.scss'
 
-const CartListView = ({ books, Delete, ids }) => {
+const CartListView = ({ books, Delete, ids, state, setState }) => {
   console.log(books)
   if (books.length === 0) {
     return (
@@ -15,7 +15,7 @@ const CartListView = ({ books, Delete, ids }) => {
     <div className='cart-list'>
       <div className='cart-list__products'>
         {books.map((product) => (
-          <CartItem key={product.ID} Delete={Delete} {...product} Count={ids.amount} />
+          <CartItem key={product.ID} Delete={Delete} {...product} Count={ids.amount} state={state} setState={setState} />
         ))}
       </div>
     </div>

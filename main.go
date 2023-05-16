@@ -26,11 +26,12 @@ func main() {
 	r.HandleFunc("/api/addFavourite", handlers.AddFavourite).Methods("POST")
 	r.HandleFunc("/api/deleteFavourite", handlers.DeleteFavourite).Methods("POST")
 	r.HandleFunc("/api/getFavourites", handlers.GetFavourites).Methods("GET")
-	r.HandleFunc("/api/redactOrder", handlers.UpdateOrder).Methods("POST")
+	//r.HandleFunc("/api/redactOrder", handlers.UpdateOrder).Methods("POST")
 	r.HandleFunc("/api/refresh", handlers.Refresh).Methods("POST")
 	r.HandleFunc("/api/cookie", handlers.CookieLogin).Methods("POST")
 	r.HandleFunc("/api/filters", handlers.GetFilters).Methods("POST")
 	r.HandleFunc("/api/getCart", handlers.GetCart).Methods("POST")
+	r.HandleFunc("/api/logout", handlers.LogOut).Methods("POST")
 
 	r.HandleFunc("/api/emp/deleteBook", handlers.DeleteBook).Methods("POST")
 	r.HandleFunc("/api/emp/addBook", handlers.AddBook).Methods("POST")

@@ -9,7 +9,7 @@ import (
 	"github.com/Ba1vo/Proektirovanie/decoder"
 )
 
-func GetBook(id int) (decoder.FullBook, error) {
+func GetBook(id int, userId int) (decoder.FullBook, error) {
 	var book decoder.FullBook
 	db, err := sql.Open("postgres", PsqlInfo)
 	if err != nil {
@@ -41,6 +41,7 @@ func GetBook(id int) (decoder.FullBook, error) {
 		string_agg(g."name", ', '), 
 		string_agg(p."name", ', ') 
 	FROM "books" AS b
+	LEFT JOIN "favourites" AS f ON f."book_id" = b."id" AND f."user_id" = %d
 	JOIN "books_authors" AS ba ON ba."book_id" = b."id"
 	JOIN "authors" AS au ON au."id" = ba."author_id"
 	
@@ -51,7 +52,7 @@ func GetBook(id int) (decoder.FullBook, error) {
 	JOIN "publishers" AS p ON p."id" = bp."publisher_id"
 
 	WHERE b."id" = %d
-	GROUP BY b."id";`, id)
+	GROUP BY b."id", f."user_id";`, userId, id)
 	row, err := db.Query(query)
 	if err != nil {
 		fmt.Println(err.Error())
@@ -61,7 +62,7 @@ func GetBook(id int) (decoder.FullBook, error) {
 	if row.Next() {
 		var authors, genres, publishers string
 		row.Scan(&book.ID, &book.ISBN, &book.Name, &book.Photo, &book.Date, &book.Desc, &book.Price, &book.Discount,
-			&book.Dimensions[0], &book.Dimensions[1], &book.Dimensions[2], &book.Amount, &authors, &genres, &publishers)
+			&book.Dimensions[0], &book.Dimensions[1], &book.Dimensions[2], &book.Amount, &authors, &genres, &publishers, &book.Favourite)
 		fmt.Println(book.Amount)
 		fmt.Println(book.Name)
 		book.Authors = strings.Split(authors, ", ")

@@ -2,12 +2,12 @@ import { HOST_URL, authApi, publicApi } from '../api'
 
 class ProductService {
   static async getPopularBooks() {
-    const res = await publicApi.post('/popular')
+    const res = await authApi.post('/popular')
     return res.data
   }
 
   static async getDiscountedBooks() {
-    const res = await publicApi.post('/discount')
+    const res = await authApi.post('/discount')
     return res.data
   }
 
@@ -32,14 +32,14 @@ class ProductService {
   }
 
   static async getSearch(query = "page=1", pageSize = 9) {
-    const res = await publicApi.get(
+    const res = await authApi.get(
       `/search?&${query}&page_size=${pageSize}`
     )
     return res.data
   }
 
   static async getBook(id) {
-    const res = await publicApi.get(`/book/${id}`)
+    const res = await authApi.get(`/book/${id}`)
     return res.data
   }
 
@@ -65,10 +65,10 @@ class ProductService {
     return res.data
   }
 
-  //static async deleteOrder(id) {
-  //  const res = await publicApi.post('/deleteOrder', id)
-  //  return res.data
-  // }
+  static async deleteFavourite(id) {
+    const res = await authApi.post('/deleteFavourite', id)
+    return res.data
+  }
 }
 
 export default ProductService

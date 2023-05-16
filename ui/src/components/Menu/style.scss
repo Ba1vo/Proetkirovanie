@@ -31,6 +31,11 @@
   }
 
   &__item {
+
+    &__acc {
+      height: 33px;        
+    }
+
     &:not(:last-child) {
       margin: 0 33px 0 0;
 
@@ -41,10 +46,14 @@
   }
 
   &__link {
+    display: flex;
+    align-items: center;
     font-weight: 300;
     transition: color 0.3s ease;
-
+    height: 100%;
+    
     &:hover {
+      fill: $primary;
       color: $primary;
     }
     &__disabled {
@@ -84,16 +93,17 @@
 
   &__account-image {
     &__signed {
-      fill: rgb(105, 105, 218);
+      margin-right: 5px;
       transition: fill 0.3s ease;
-    &:hover {
-      fill: $primary;
+      &:hover {
+        fill: $primary;
+      }
+
+      @media (max-width: $bp768) {
+        display: none;
+      }
     }
 
-    @media (max-width: $bp768) {
-      display: none;
-    }
-    }
     &__nonsigned {
       fill: $text;
       transition: fill 0.3s ease;

@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 
 import Footer from './components/Footer'
 import Header from './components/Header'
@@ -16,22 +16,23 @@ import ProductPage from './pages/ProductPage'
 import OrderPage from './pages/Orders'
 import FavouritesPage from './pages/Favourites'
 import CartPage from './pages/CartPage'
+import { useDispatch, useSelector } from 'react-redux'
+import { cookieLog } from './slices/authSlice'
+import PrivateRoute from './PrivateRoutes'
 
 const App = () => {
-  const [user, setUser] = useState(null)
+  const user = useSelector((state) => state.auth.user)
+  console.log(user)
   let User = {
     Email: "evi13@tpu.ru",
     Pass: "159753Kupa"
   }
+  const dispatch = useDispatch()
   useEffect(() => {
     if (JSON.parse(localStorage.getItem('cart')) === null ){
       localStorage.setItem('cart', JSON.stringify([]));
     }
-    AuthService.loginCookie().then(
-      (res) =>{
-        setUser(res)
-      }
-    )
+    dispatch(cookieLog()).unwrap()
   }, [])
   let RegUser = {
     Name: "Pipa",
@@ -77,17 +78,19 @@ const App = () => {
   }
    return (
     <div className='app'>
-      <Header user = {user} setUser = {setUser}  />
+      <Header />
       <main className='main'>
         <Routes>
-          <Route path='/login' element={<LoginPage user = {user} setUser = {setUser}/>} />
-          <Route path='' element={<MainPage user = {user} setUser = {setUser}/>} />
-          <Route path='/registration' element={<RegistrationPage setUser = {setUser}/>} />
+          <Route path='/login' element={<LoginPage user = {user} />} />
+          <Route path='' element={<MainPage user = {user} />} />
+          <Route path='/registration' element={<RegistrationPage/>} />
           <Route path='/catalog' element={<CatalogPage />} />
           <Route path='/book/:id' element={<ProductPage />} />
-          <Route path='/favourites' element={<FavouritesPage />} />
-          <Route path='/orders' element={<OrderPage />} />
           <Route path='/cart' element={<CartPage />} />
+          <Route element={<PrivateRoute user={user}/>} >
+              <Route path='/favourites' element={<FavouritesPage />} />
+              <Route path='/orders' element={<OrderPage />} />
+          </Route>
         </Routes>
       </main>
       <Footer />

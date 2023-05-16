@@ -14,7 +14,9 @@ const CartItem = ({
   Price,
   Discount,
   Count,
-  Delete
+  Delete,
+  state, 
+  setState
 }) => {
 
   const [count, setCount] = useState(Count)
@@ -36,6 +38,7 @@ const CartItem = ({
     let index = array.findIndex((obj => obj.id == ID))
     if (index !== -1){
       array[index].amount = count 
+      setState({...state, ids: array})
       localStorage.setItem('cart', JSON.stringify(array));
     } 
   }, [count])

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 //import { login } from '../../../slices/authSlice'
 import LoadingButton from '../../LoadingButton'
@@ -19,7 +19,9 @@ import { useEffect } from 'react'
 const CartForm = ({ state }) => {
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
+  const user = useSelector((state) => state.auth.user)
   console.log(state)
+  console.log(user)
   let sum = 0
   if (state.books.length > 0){
     for (let i = 0; i < state.ids.length; i++) {
@@ -42,9 +44,9 @@ const CartForm = ({ state }) => {
         } 
       })
   } 
-
+  console.log(user)
   return (
-    <div className={state.ids.length === 0 ? 'order-form-container__disabled': 'order-form-container'}>
+    <div className={typeof user === "undefined" || state.ids.length === 0 ? 'order-form-container__disabled': 'order-form-container'}>
       <div className='order-form-container__sum'>
       Общая сумма: {sum} ₽
       </div>

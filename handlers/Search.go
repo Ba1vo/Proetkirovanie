@@ -7,6 +7,7 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/Ba1vo/Proektirovanie/crypt"
 	"github.com/Ba1vo/Proektirovanie/decoder"
 	"github.com/Ba1vo/Proektirovanie/queries"
 )
@@ -38,12 +39,9 @@ func Search(w http.ResponseWriter, r *http.Request) {
 		d.MinDate = dates[0]
 		d.MaxDate = dates[1]
 	}
-	//if !(checks.CheckUserAuth(d)) {
-	//	w.WriteHeader(http.StatusInternalServerError)
-	//	return
-	//}
+	user := crypt.CookieIsValid(r.Cookies(), "Token")
 	fmt.Println("search in use")
-	books, err := queries.GetSearchBooks(d)
+	books, err := queries.GetSearchBooks(user, d)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		return

@@ -13,6 +13,7 @@ class AuthService {
 
   static async loginCookie(user) {
     const res = await authApi.post('/cookie', user)
+    console.log(res.data)
     return res.data
   }
 

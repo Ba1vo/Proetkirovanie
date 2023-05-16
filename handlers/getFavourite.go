@@ -22,7 +22,7 @@ func GetFavourites(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	id = crypt.CookieIsValid(r.Cookies(), "Token")
-	if err != nil {
+	if id == 0 {
 		w.WriteHeader(http.StatusUnauthorized)
 		return
 	}
